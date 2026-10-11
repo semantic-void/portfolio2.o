@@ -45,9 +45,6 @@ p{margin:0 0 1rem;max-width:40rem}
 .row{display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;align-items:center;margin-top:1.4rem}
 .btn{display:inline-block;padding:.65rem 1.2rem;border-radius:999px;border:1px solid var(--edge);text-decoration:none;font-weight:500;color:var(--ink);background:var(--glass2)}
 .btn.fill{background:var(--accent);color:#fff;border-color:transparent}
-.whatsapp-link{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:2.8rem;padding:.65rem 1.2rem;border:1px solid var(--edge);border-radius:999px;background:var(--glass2);color:var(--ink);font-weight:500;text-decoration:none;box-shadow:inset 0 1px 0 var(--edge);transition:background .18s ease,border-color .18s ease,transform .18s ease}
-.whatsapp-link svg{width:1.25rem;height:1.25rem;flex:none;fill:currentColor}
-.whatsapp-link:hover{transform:translateY(-2px);border-color:var(--accent);background:var(--glass);color:var(--accent)}
 .chips{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2rem}
 .chip{padding:.7rem 1.1rem;border-radius:20px;border:1px solid var(--edge);box-shadow:0 14px 28px -14px var(--shadow);animation:fl 6s ease-in-out infinite}
 .chip:nth-child(2){animation-delay:-1.5s}.chip:nth-child(3){animation-delay:-3s}.chip:nth-child(4){animation-delay:-4.5s}
@@ -187,6 +184,13 @@ footer{text-align:center;color:var(--muted);font-size:.9rem;padding-top:1rem}
   <p class="sub reveal">Side projects where I tried things out end to end.</p>
   <div class="grid">
     <article class="glass card tilt reveal" data-tilt>
+      <!-- To add a screenshot, replace the .thumb div with: <div class="thumb"><img src="images/geekcentral.png" alt="GeekCentral screenshot"></div> -->
+      <div class="thumb"><div class="top"><s></s><s></s><s></s></div><div class="body">Screenshot coming soon</div></div>
+      <h3>GeekCentral</h3><p>The Tech Blog rebuilt in Spring Boot with new features.</p>
+      <div class="stack">Spring Boot, Spring Data JPA, Spring Security, JSP, MySQL, jQuery</div>
+      <div class="row"><a href="https://github.com/semantic-void/GeekCentral">GitHub</a></div>
+    </article>
+    <article class="glass card tilt reveal" data-tilt>
       <div class="thumb"><div class="top"><s></s><s></s><s></s></div><div class="body">Screenshot coming soon</div></div>
       <h3>StoryBooks</h3><p>Create, edit and delete public or private stories, browse other people's public stories, and sign in with Google.</p>
       <div class="stack">Node.js, Express, Handlebars, Passport.js, Google Auth, MongoDB Atlas</div>
@@ -197,6 +201,12 @@ footer{text-align:center;color:var(--muted);font-size:.9rem;padding-top:1rem}
       <h3>Tech Blog</h3><p>A Q&amp;A platform where programmers share information and like posts, with sign-up, login and profile management.</p>
       <div class="stack">Java, JSP, Servlets, SQLite, Ajax, jQuery, Bootstrap, Tomcat</div>
       <div class="row"><a href="https://github.com/semantic-void/Projects/tree/master/TechBlog">GitHub</a></div>
+    </article>
+    <article class="glass card tilt reveal" data-tilt>
+      <div class="thumb"><div class="top"><s></s><s></s><s></s></div><div class="body">Screenshot coming soon</div></div>
+      <h3>Student information system</h3><p>A college clerical web app for student management, built with MVC and connection pooling.</p>
+      <div class="stack">Java, JSP, Servlets, MySQL, Bootstrap</div>
+      <div class="row"><a href="https://github.com/semantic-void/Projects">GitHub</a></div>
     </article>
   </div>
 </div></section>
@@ -251,13 +261,6 @@ footer{text-align:center;color:var(--muted);font-size:.9rem;padding-top:1rem}
     <p>I'm open to backend and full-stack roles, and to relocation. Email is the quickest way to reach me.</p>
     <div class="row">
       <a class="btn fill" href="mailto:sachinsharmass790@gmail.com">sachinsharmass790@gmail.com</a>
-      <a class="btn" href="tel:+919888260630" aria-label="Call Sachin at +91 9888260630">+91 9888260630</a>
-      <a class="whatsapp-link" href="https://wa.me/919888260630" target="_blank" rel="noopener noreferrer" aria-label="Message Sachin on WhatsApp" title="WhatsApp">
-        <svg viewBox="0 0 32 32" role="img" aria-hidden="true">
-          <path d="M16.02 3.2A12.7 12.7 0 0 0 5.1 22.38L3.3 28.9l6.68-1.75A12.7 12.7 0 1 0 16.02 3.2Zm0 23.1c-1.94 0-3.85-.52-5.52-1.51l-.4-.24-3.96 1.04 1.06-3.86-.26-.42a10.4 10.4 0 1 1 9.08 4.99Zm5.72-7.79c-.31-.16-1.85-.91-2.14-1.02-.29-.1-.5-.16-.71.16-.21.31-.81 1.02-.99 1.23-.18.21-.36.24-.67.08-.31-.15-1.31-.48-2.49-1.53-.92-.82-1.54-1.84-1.72-2.15-.18-.31-.02-.48.14-.64.14-.14.31-.36.47-.54.16-.18.21-.31.31-.52.1-.21.05-.39-.03-.54-.08-.16-.71-1.71-.97-2.34-.25-.61-.51-.53-.71-.54l-.6-.01c-.21 0-.55.08-.84.39-.29.31-1.1 1.07-1.1 2.61s1.13 3.03 1.28 3.24c.16.21 2.22 3.39 5.38 4.75.75.32 1.33.51 1.79.65.75.24 1.43.21 1.97.13.6-.09 1.85-.76 2.11-1.49.26-.73.26-1.36.18-1.49-.08-.13-.29-.21-.6-.36Z"/>
-        </svg>
-        <span>WhatsApp</span>
-      </a>
       <a href="https://www.linkedin.com/in/sachin-sharma-cs/">LinkedIn</a>
       <a href="https://github.com/semantic-void">GitHub</a>
       <a href="https://medium.com/@sachinsharmass790">Medium</a>
