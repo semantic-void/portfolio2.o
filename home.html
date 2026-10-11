@@ -214,10 +214,7 @@
         font-weight: 500;
         text-decoration: none;
         box-shadow: inset 0 1px 0 var(--edge);
-        transition:
-          background 0.18s ease,
-          border-color 0.18s ease,
-          transform 0.18s ease;
+        transition: none;
       }
       .whatsapp-link svg {
         width: 1.25rem;
@@ -225,11 +222,15 @@
         flex: none;
         fill: currentColor;
       }
-      .whatsapp-link:hover {
-        transform: translateY(-2px);
-        border-color: var(--accent);
-        background: var(--glass);
-        color: var(--accent);
+      .whatsapp-link:hover,
+      .whatsapp-link:focus-visible {
+        transform: none;
+        border-color: var(--edge);
+        background: var(--glass2);
+        color: var(--ink);
+      }
+      .social-row {
+        margin-top: 0.8rem;
       }
       .chips {
         display: flex;
@@ -745,7 +746,30 @@
           <article class="glass card tilt reveal" data-tilt>
             <div class="thumb">
               <div class="top"><s></s><s></s><s></s></div>
-              <div class="body">Screenshot coming soon</div>
+              <img src="techBlog.webp" alt="Tech Blog project screenshot" />
+            </div>
+            <h3>Tech Blog</h3>
+            <p>
+              A Q&amp;A platform where programmers share information and like
+              posts, with sign-up, login and profile management.
+            </p>
+            <div class="stack">
+              Java, JSP, Servlets, SQLite, Ajax, jQuery, Bootstrap, Tomcat
+            </div>
+            <div class="row">
+              <a
+                href="https://github.com/semantic-void/Projects/tree/master/TechBlog"
+                >GitHub</a
+              >
+            </div>
+          </article>
+          <article class="glass card tilt reveal" data-tilt>
+            <div class="thumb">
+              <div class="top"><s></s><s></s><s></s></div>
+              <img
+                src="storyBooks.webp"
+                alt="StoryBooks project screenshot"
+              />
             </div>
             <h3>StoryBooks</h3>
             <p>
@@ -759,26 +783,6 @@
             <div class="row">
               <a href="https://storybooks-5spl.onrender.com">Live site</a
               ><a href="https://github.com/semantic-void/MyStoryBooks"
-                >GitHub</a
-              >
-            </div>
-          </article>
-          <article class="glass card tilt reveal" data-tilt>
-            <div class="thumb">
-              <div class="top"><s></s><s></s><s></s></div>
-              <div class="body">Screenshot coming soon</div>
-            </div>
-            <h3>Tech Blog</h3>
-            <p>
-              A Q&amp;A platform where programmers share information and like
-              posts, with sign-up, login and profile management.
-            </p>
-            <div class="stack">
-              Java, JSP, Servlets, SQLite, Ajax, jQuery, Bootstrap, Tomcat
-            </div>
-            <div class="row">
-              <a
-                href="https://github.com/semantic-void/Projects/tree/master/TechBlog"
                 >GitHub</a
               >
             </div>
@@ -836,24 +840,6 @@
           </ul>
         </article>
         <!-- CONFIRM THESE DATES: this entry overlaps with AlgoDomain in your old CV. Fix or delete before publishing. -->
-        <article class="glass job tilt reveal" data-tilt>
-          <header>
-            <h3>
-              Senior Software Development Trainer and Developer, GN Infotech
-            </h3>
-            <span class="when">Nov 2022 to Apr 2023</span>
-          </header>
-          <p class="where">Khanna, Punjab. Authorised by C-DAC.</p>
-          <ul>
-            <li>
-              Worked as both developer and senior trainer: web development and
-              freelance projects, plus teaching Java, J2EE, Spring Boot, REST,
-              SQL, C/C++, Node.js, TypeScript, JavaScript, HTML5, CSS and
-              Bootstrap.
-            </li>
-            <li>Improved student guidance and enrolment.</li>
-          </ul>
-        </article>
         <!-- CONFIRM these dates (your old site says Nov 2021 to Mar 2022, an older CV said Aug to Sep 2022) -->
         <article class="glass job tilt reveal" data-tilt>
           <header>
@@ -884,16 +870,10 @@
             <li>JavaScript</li>
             <li>SQL</li>
             <li>PL/SQL</li>
-            <li>C/C++</li>
-            <li>HTML5</li>
-            <li>CSS3</li>
           </ul>
           <h3>Backend frameworks</h3>
           <ul class="pills">
             <li>Spring Boot</li>
-            <li>Spring Data JPA</li>
-            <li>Spring Security</li>
-            <li>J2EE</li>
             <li>Servlet / JSP</li>
             <li>Node.js</li>
             <li>Express.js</li>
@@ -902,10 +882,6 @@
           <ul class="pills">
             <li>React.js</li>
             <li>Next.js</li>
-            <li>Next UI</li>
-            <li>Bootstrap</li>
-            <li>jQuery</li>
-            <li>Ajax</li>
           </ul>
           <h3>AWS</h3>
           <ul class="pills">
@@ -938,9 +914,8 @@
             <li>OpenRewrite</li>
             <li>Git, GitHub, Bitbucket</li>
             <li>REST APIs</li>
-            <li>XML</li>
-            <li>JSON</li>
-            <li>Message queues</li>
+            <li>XML / SOAP</li>
+            <li>JSON / REST</li>
             <li>SFTP</li>
             <li>Grafana</li>
             <li>Splunk</li>
@@ -1028,6 +1003,8 @@
               </svg>
               <span>WhatsApp</span>
             </a>
+          </div>
+          <div class="row">
             <a href="https://www.linkedin.com/in/sachin-sharma-cs/">LinkedIn</a>
             <a href="https://github.com/semantic-void">GitHub</a>
             <a href="https://medium.com/@sachinsharmass790">Medium</a>
