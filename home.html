@@ -529,12 +529,767 @@
         font-size: 0.9rem;
         padding-top: 1rem;
       }
+
+      /* ---- interactive layer ---- */
+      .glass {
+        position: relative;
+        isolation: isolate;
+      }
+      .glass::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s;
+        background: radial-gradient(
+          22rem circle at var(--mx, 50%) var(--my, 50%),
+          color-mix(in srgb, var(--accent) 16%, transparent),
+          transparent 60%
+        );
+      }
+      .glass:hover::before {
+        opacity: 1;
+      }
+      .prog {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: var(--accent);
+        transform-origin: left;
+        transform: scaleX(var(--p, 0));
+        z-index: 40;
+      }
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: calc(5.6rem + env(safe-area-inset-bottom, 0px));
+        transform: translate(-50%, 12px);
+        opacity: 0;
+        pointer-events: none;
+        z-index: 30;
+        display: flex;
+        gap: 0.8rem;
+        align-items: center;
+        padding: 0.6rem 1rem;
+        border-radius: 999px;
+        border: 1px solid var(--edge);
+        background: var(--glass);
+        -webkit-backdrop-filter: blur(24px);
+        backdrop-filter: blur(24px);
+        box-shadow: 0 16px 32px -12px var(--shadow);
+        font-size: 0.9rem;
+        max-width: calc(100% - 1.5rem);
+        transition:
+          opacity 0.25s,
+          transform 0.25s;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+        pointer-events: auto;
+      }
+      .toast button {
+        font: inherit;
+        cursor: pointer;
+        border: 0;
+        background: none;
+        color: var(--accent);
+        font-weight: 600;
+        padding: 0;
+      }
+      .pills li {
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          border-color 0.2s,
+          transform 0.2s;
+      }
+      .pills li:hover {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+      }
+      .pills li.sel {
+        background: var(--accent);
+        color: #fff;
+        border-color: transparent;
+      }
+      .dim,
+      .js .reveal.in.dim {
+        opacity: 0.3;
+      }
+      .hit {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+      }
+      article {
+        transition: opacity 0.3s;
+      }
+      .sim {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem 1rem;
+        align-items: center;
+      }
+      .sim .seg {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+      }
+      .sim button {
+        font: inherit;
+        cursor: pointer;
+        padding: 0.45rem 0.95rem;
+        border-radius: 999px;
+        border: 1px solid var(--edge);
+        background: var(--glass2);
+        color: var(--ink);
+      }
+      .sim button[aria-pressed="true"] {
+        background: var(--accent);
+        color: #fff;
+        border-color: transparent;
+      }
+      .sim .go {
+        background: var(--accent);
+        color: #fff;
+        border-color: transparent;
+        font-weight: 600;
+      }
+      .sim .go:disabled {
+        opacity: 0.6;
+        cursor: default;
+      }
+      .sim-note {
+        font-size: 0.88rem;
+        color: var(--muted);
+        margin: 0;
+      }
+      ol.flow li {
+        transition:
+          background 0.3s,
+          border-color 0.3s,
+          opacity 0.3s,
+          transform 0.3s;
+      }
+      ol.flow.armed li {
+        opacity: 0.4;
+      }
+      ol.flow.armed li.on {
+        opacity: 1;
+        background: var(--glass);
+        border-color: var(--accent);
+        transform: translateY(-4px);
+      }
+
+      /* ---- invitations ---- */
+      .explore {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+        margin-top: 1.6rem;
+      }
+      .explore > span {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .explore button,
+      .tryb {
+        font: inherit;
+        font-size: 0.92rem;
+        cursor: pointer;
+        padding: 0.4rem 0.9rem;
+        border-radius: 999px;
+        border: 1px dashed var(--accent);
+        background: transparent;
+        color: var(--accent);
+        font-weight: 500;
+        transition: background 0.2s;
+      }
+      .explore button:hover,
+      .tryb:hover {
+        background: color-mix(in srgb, var(--accent) 14%, transparent);
+      }
+      .tryb {
+        margin-left: 0.3rem;
+        padding: 0.15rem 0.7rem;
+        font-size: 0.85rem;
+      }
+      .badge {
+        display: inline-block;
+        margin-left: 0.6rem;
+        padding: 0.1rem 0.6rem;
+        border-radius: 999px;
+        font: 600 0.7rem var(--sans);
+        color: var(--accent);
+        border: 1px solid var(--accent);
+        vertical-align: middle;
+        letter-spacing: 0.02em;
+      }
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);
+        }
+        100% {
+          box-shadow: 0 0 0 0.9rem transparent;
+        }
+      }
+      .sim .go:not(.used):not(:disabled) {
+        animation: pulse 1.8s infinite;
+      }
+      .fab {
+        position: fixed;
+        top: calc(0.9rem + env(safe-area-inset-top, 0px));
+        right: 0.9rem;
+        z-index: 35;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font: inherit;
+        font-weight: 500;
+        cursor: pointer;
+        padding: 0.55rem 1rem;
+        border-radius: 999px;
+        border: 1px solid var(--edge);
+        background: var(--glass);
+        color: var(--ink);
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 14px 28px -12px var(--shadow);
+      }
+      .fab::before {
+        content: "";
+        width: 0.55rem;
+        height: 0.55rem;
+        border-radius: 50%;
+        background: var(--accent);
+        animation: pulse 1.8s infinite;
+      }
+      dialog {
+        margin: auto;
+        border: 1px solid var(--edge);
+        border-radius: 28px;
+        padding: 1.5rem;
+        width: calc(100% - 2rem);
+        max-width: 36rem;
+        color: var(--ink);
+        background: color-mix(in srgb, var(--base) 93%, transparent);
+        -webkit-backdrop-filter: blur(24px);
+        backdrop-filter: blur(24px);
+        box-shadow: 0 40px 80px -20px var(--shadow);
+      }
+      dialog::backdrop {
+        background: rgba(10, 15, 25, 0.5);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+      }
+      .qa-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.8rem;
+      }
+      .qa-head h2 {
+        margin: 0;
+      }
+      .qa-head button {
+        font: inherit;
+        font-size: 1.5rem;
+        line-height: 1;
+        cursor: pointer;
+        border: 0;
+        background: none;
+        color: var(--muted);
+      }
+      .qchips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+        margin-bottom: 1rem;
+      }
+      .qchips button {
+        font: inherit;
+        font-size: 0.9rem;
+        cursor: pointer;
+        padding: 0.35rem 0.85rem;
+        border-radius: 999px;
+        border: 1px solid var(--edge);
+        background: var(--glass2);
+        color: var(--ink);
+      }
+      .qchips button[aria-pressed="true"] {
+        background: var(--accent);
+        color: #fff;
+        border-color: transparent;
+      }
+      .answer {
+        min-height: 7rem;
+        padding: 1rem 1.1rem;
+        border-radius: 18px;
+        border: 1px solid var(--edge);
+        background: var(--glass2);
+        margin-bottom: 1rem;
+      }
+      .answer p {
+        margin: 0;
+        max-width: none;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .fab::before,
+        .sim .go:not(.used):not(:disabled) {
+          animation: none;
+        }
+      }
+
+      /* ---- plain english + system explorer ---- */
+      .mode {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+        margin: -0.6rem 0 1.6rem;
+      }
+      .mode > span {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .mode button,
+      .nodes button {
+        font: inherit;
+        font-size: 0.9rem;
+        cursor: pointer;
+        padding: 0.35rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid var(--edge);
+        background: var(--glass2);
+        color: var(--ink);
+        transition: background 0.2s;
+      }
+      .mode button[aria-pressed="true"],
+      .nodes button[aria-pressed="true"] {
+        background: var(--accent);
+        color: #fff;
+        border-color: transparent;
+      }
+      .nodes button:hover {
+        border-color: var(--accent);
+      }
+      .nodes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+        align-items: center;
+      }
+      .node-detail {
+        min-height: 2.8rem;
+      }
+      .bar.flag {
+        background: color-mix(in srgb, var(--accent) 14%, transparent);
+        border-radius: 10px;
+        padding: 0.3rem 0.5rem;
+        margin: -0.3rem -0.5rem;
+      }
+      #work .plain-text {
+        display: none;
+        margin: 0;
+        font-size: 1.05rem;
+        max-width: 44rem;
+      }
+      #work.plain .plain-text {
+        display: block;
+      }
+      #work.plain .cols,
+      #work.plain ol.flow,
+      #work.plain .sim,
+      #work.plain #simout,
+      #work.plain .nodes,
+      #work.plain .node-detail {
+        display: none;
+      }
+
+      /* ---- persistent skill filter bar ---- */
+      .fbar {
+        position: fixed;
+        left: 50%;
+        bottom: calc(5.4rem + env(safe-area-inset-bottom, 0px));
+        transform: translate(-50%, 12px);
+        opacity: 0;
+        pointer-events: none;
+        z-index: 31;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem 0.6rem;
+        padding: 0.5rem 0.6rem 0.5rem 1rem;
+        border-radius: 24px;
+        border: 1px solid var(--edge);
+        background: var(--glass);
+        -webkit-backdrop-filter: blur(24px);
+        backdrop-filter: blur(24px);
+        box-shadow: 0 16px 32px -12px var(--shadow);
+        max-width: calc(100% - 1.5rem);
+        transition:
+          opacity 0.25s,
+          transform 0.25s;
+      }
+      .fbar.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+        pointer-events: auto;
+      }
+      .fbar b {
+        color: var(--accent);
+      }
+      .fbar button {
+        font: inherit;
+        font-size: 0.9rem;
+        cursor: pointer;
+        border-radius: 999px;
+        border: 1px solid var(--edge);
+        background: var(--glass2);
+        color: var(--ink);
+        padding: 0.3rem 0.75rem;
+      }
+      .fbar .clr {
+        background: var(--accent);
+        color: #fff;
+        border-color: transparent;
+        font-weight: 600;
+      }
+      body.filtering .toast {
+        bottom: calc(10rem + env(safe-area-inset-bottom, 0px));
+      }
+
+      /* ---- opening animation: the oracle orb ---- */
+      .intro {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: radial-gradient(
+          circle at 50% 50%,
+          #142040 0%,
+          #0a0f1e 55%,
+          #04060d 100%
+        );
+        color: #eaf2ff;
+        transition: transform 0.9s cubic-bezier(0.7, 0, 0.2, 1);
+      }
+      .intro-on .intro {
+        display: block;
+      }
+      .intro.done {
+        transform: translateY(-100%);
+      }
+      .intro-on body {
+        overflow: hidden;
+      }
+      .halo {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: calc(min(100vw, 100vh) * 1);
+        height: calc(min(100vw, 100vh) * 1);
+        transform: translate(-50%, -50%) scale(0.6);
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(190, 215, 255, 0.65) 0%,
+          rgba(120, 165, 255, 0.22) 32%,
+          transparent 66%
+        );
+        opacity: 0;
+        transition:
+          opacity 1.2s ease,
+          transform 1.6s ease;
+        pointer-events: none;
+      }
+      .intro.formed .halo {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        animation: breathe 3.2s ease-in-out 1.6s infinite;
+      }
+      .intro.speaking .halo {
+        animation: talk 1s ease-in-out infinite;
+      }
+      @keyframes breathe {
+        50% {
+          transform: translate(-50%, -50%) scale(1.08);
+          opacity: 0.8;
+        }
+      }
+      @keyframes talk {
+        50% {
+          transform: translate(-50%, -50%) scale(1.2);
+          opacity: 1;
+        }
+      }
+      .intro svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        pointer-events: none;
+      }
+      .ln,
+      .hd {
+        fill: none;
+        stroke-linecap: round;
+        transition: stroke-dashoffset 2.3s cubic-bezier(0.55, 0, 0.25, 1);
+      }
+      .ln {
+        stroke: #e3eeff;
+        stroke-width: 3.5;
+        stroke-dasharray: 1 1;
+        stroke-dashoffset: 1;
+        filter: drop-shadow(0 0 5px #a9c8ff) drop-shadow(0 0 16px #6f9cff);
+      }
+      .hd {
+        stroke: #fff;
+        stroke-width: 8;
+        stroke-dasharray: 0.035 1;
+        stroke-dashoffset: 0;
+        filter: drop-shadow(0 0 8px #fff) drop-shadow(0 0 24px #8db4ff);
+      }
+      .intro.draw .ln {
+        stroke-dashoffset: 0;
+      }
+      .intro.draw .hd {
+        stroke-dashoffset: -1;
+      }
+      .core {
+        opacity: 0;
+        transition: opacity 1.2s ease;
+      }
+      .intro.formed .core {
+        opacity: 1;
+      }
+      .orb {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: calc(min(100vw, 100vh) * 0.46);
+        height: calc(min(100vw, 100vh) * 0.46);
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+      }
+      .orb:focus-visible {
+        outline: 2px solid #bcd3ff;
+        outline-offset: 6px;
+      }
+      .cap {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: calc(50% + min(100vw, 100vh) * 0.27);
+        text-align: center;
+        padding: 0 1.5rem;
+      }
+      .cap p {
+        margin: 0 auto 0.3rem;
+        max-width: none;
+        font: 500 clamp(1.3rem, 4.6vw, 2rem)/1.3 var(--serif);
+        color: #eaf2ff;
+        opacity: 0;
+        transform: translateY(8px);
+        transition:
+          opacity 0.9s,
+          transform 0.9s;
+        text-shadow: 0 0 18px rgba(150, 190, 255, 0.6);
+      }
+      .cap p.in {
+        opacity: 1;
+        transform: none;
+      }
+      .hint {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
+        text-align: center;
+        margin: 0 auto;
+        max-width: none;
+        font-size: 0.9rem;
+        color: #a9bddf;
+        opacity: 0;
+        transition: opacity 0.8s;
+      }
+      .hint.in {
+        opacity: 1;
+      }
+      .intro-skip {
+        position: absolute;
+        right: 1.2rem;
+        top: calc(1rem + env(safe-area-inset-top, 0px));
+        font: inherit;
+        font-size: 0.9rem;
+        cursor: pointer;
+        padding: 0.4rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid rgba(200, 220, 255, 0.35);
+        background: rgba(255, 255, 255, 0.06);
+        color: #dbe8ff;
+      }
+      html.intro-on .hero .glass > * {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      html.intro-on body.hero-in .hero .glass > * {
+        opacity: 1;
+        transform: none;
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+        transition-delay: calc(var(--i, 0) * 90ms);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .intro {
+          display: none !important;
+        }
+      }
+      .since {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin: -0.4rem 0 1.2rem;
+      }
+      .since b {
+        color: var(--accent);
+        font-variant-numeric: tabular-nums;
+      }
+      #jd textarea {
+        width: 100%;
+        min-height: 8rem;
+        padding: 0.8rem;
+        border-radius: 14px;
+        border: 1px solid var(--edge);
+        background: var(--glass2);
+        color: var(--ink);
+        font: inherit;
+        font-size: 0.95rem;
+        resize: vertical;
+        margin-bottom: 0.8rem;
+      }
+      #jd .row {
+        margin-top: 0;
+        margin-bottom: 1rem;
+      }
+      #jd .answer {
+        min-height: 0;
+      }
+      .jdchips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin: 0.5rem 0 1rem;
+      }
+      .jdchips button,
+      .jdchips span {
+        font: inherit;
+        font-size: 0.88rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 999px;
+        border: 1px solid var(--edge);
+        background: var(--glass2);
+        color: var(--ink);
+      }
+      .jdchips button {
+        cursor: pointer;
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .jdchips span {
+        color: var(--muted);
+      }
+      .jdnote {
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin: 0;
+      }
+
+      .debug .pills li.untagged {
+        outline: 2px dashed #d33;
+        outline-offset: 2px;
+      }
+      .debug .pills li.untagged::after {
+        content: " ?";
+        color: #d33;
+      }
     </style>
     <script>
       document.documentElement.className = "js";
     </script>
+    <script>
+      (function () {
+        try {
+          var rm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (!rm && sessionStorage.getItem("introSeen") !== "1")
+            document.documentElement.classList.add("intro-on");
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
+    <div class="intro" id="intro" aria-label="Welcome animation">
+      <div class="halo" aria-hidden="true"></div>
+      <svg
+        viewBox="0 0 1000 1000"
+        preserveAspectRatio="xMidYMid meet"
+        aria-hidden="true"
+      >
+        <defs>
+          <radialGradient id="og" cx="50%" cy="42%" r="60%">
+            <stop offset="0%" stop-color="#dcebff" stop-opacity=".42" />
+            <stop offset="55%" stop-color="#7ea6ff" stop-opacity=".14" />
+            <stop offset="100%" stop-color="#7ea6ff" stop-opacity=".03" />
+          </radialGradient>
+        </defs>
+        <circle class="core" cx="500" cy="500" r="220" fill="url(#og)" />
+        <path
+          class="ln"
+          pathLength="1"
+          d="M -122 -433 C 200 -100, 450 150, 655.6 344.4 A 220 220 0 0 1 344.4 655.6"
+        />
+        <path
+          class="hd"
+          pathLength="1"
+          d="M -122 -433 C 200 -100, 450 150, 655.6 344.4 A 220 220 0 0 1 344.4 655.6"
+        />
+        <path
+          class="ln"
+          pathLength="1"
+          d="M 1122 1433 C 800 1100, 550 850, 344.4 655.6 A 220 220 0 0 1 655.6 344.4"
+        />
+        <path
+          class="hd"
+          pathLength="1"
+          d="M 1122 1433 C 800 1100, 550 850, 344.4 655.6 A 220 220 0 0 1 655.6 344.4"
+        />
+      </svg>
+      <button
+        type="button"
+        class="orb"
+        id="orb"
+        aria-label="Play the welcome message"
+      ></button>
+      <div class="cap">
+        <p>Welcome to my portfolio.</p>
+        <p>Your search will end here.</p>
+      </div>
+      <p class="hint" id="hint">Tap anywhere to hear it</p>
+      <button type="button" class="intro-skip" id="introskip">Skip</button>
+    </div>
+    <div class="prog" aria-hidden="true"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <nav class="dock" aria-label="Sections">
       <ul>
         <li><a href="#top">Home</a></li>
@@ -551,6 +1306,9 @@
       <div class="wrap">
         <div class="glass tilt" data-tilt>
           <div class="status">Pune, India. Open to relocation.</div>
+          <div class="since">
+            Shipping backend code since Jul 2022: <b id="days">0</b> days
+          </div>
           <h1>Backend systems for banks, airlines and versioning.</h1>
           <p class="lead">
             I'm Sachin Sharma, a backend engineer with full-stack experience in
@@ -562,6 +1320,18 @@
             <a class="btn" href="SachinSharmaResume.pdf">Resume (PDF)</a>
             <a href="https://github.com/semantic-void">GitHub</a>
             <a href="https://www.linkedin.com/in/sachin-sharma-cs/">LinkedIn</a>
+          </div>
+          <div class="explore">
+            <span>Try it:</span>
+            <button type="button" data-act="sim">
+              Run the email routing demo
+            </button>
+            <button type="button" data-act="skill">
+              Click a skill, see where I used it
+            </button>
+            <button type="button" data-act="plain">Plain-English mode</button>
+            <button type="button" data-act="jd">Match a job description</button>
+            <button type="button" data-act="qa">Ask me anything</button>
           </div>
           <div class="chips">
             <div class="chip"><b>4+</b><span>years in backend</span></div>
@@ -581,9 +1351,23 @@
         <p class="sub reveal">
           Four systems I worked on, what I built, and what changed.
         </p>
+        <div class="mode" role="group" aria-label="Explanation level">
+          <span>Explain it in:</span>
+          <button type="button" aria-pressed="true" data-mode="tech">
+            Technical terms
+          </button>
+          <button type="button" aria-pressed="false" data-mode="plain">
+            Plain English
+          </button>
+        </div>
 
         <!-- CHECK with your employer that this level of detail is OK to share publicly -->
-        <article class="glass case tilt reveal" data-tilt>
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+        <article
+          data-skills="Java, Spring Boot, React.js, AWS, Event-driven, REST APIs"
+          class="glass case tilt reveal"
+          data-tilt
+        >
           <div>
             <h3>Enterprise version management platform</h3>
             <div class="tag">
@@ -591,6 +1375,11 @@
               event-driven architecture.
             </div>
           </div>
+          <p class="plain-text">
+            Software that keeps a full history of every change to official
+            documents and code, a bit like a careful record book. I built core
+            parts of it.
+          </p>
           <div class="cols">
             <div>
               <h4>What it is</h4>
@@ -616,15 +1405,28 @@
           </div>
         </article>
 
-        <article class="glass case tilt reveal" data-tilt>
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+        <article
+          data-skills="Java, Spring Boot, XML, SFTP"
+          class="glass case tilt reveal"
+          data-tilt
+        >
           <div>
-            <h3>Custom email maintenance system</h3>
+            <h3>
+              Custom email maintenance system
+              <span class="badge">Interactive</span>
+            </h3>
             <div class="tag">
               Intellect Design Arena, CSOP platform, client bank. Java, Spring
               Boot, queues, SFTP.
             </div>
           </div>
-          <ol class="flow">
+          <p class="plain-text">
+            When something changes at a bank, the right person must get the
+            right email. I built the part that works out who that is, across
+            more than 12 situations, and tells the sending system what to send.
+          </p>
+          <ol class="flow" id="mailflow">
             <li><b>Email arrives</b>As an XML file and an HTML file.</li>
             <li><b>Split</b>HTML is shown in the UI. XML goes to a queue.</li>
             <li>
@@ -640,6 +1442,32 @@
               data it needs.
             </li>
           </ol>
+          <div class="sim" id="sim">
+            <span class="sim-note"><b>Try it:</b> who is the alert for?</span>
+            <div class="seg" role="group" aria-label="Recipient type">
+              <button type="button" aria-pressed="true" data-rec="Bank">
+                Bank
+              </button>
+              <button type="button" aria-pressed="false" data-rec="Anchor">
+                Anchor
+              </button>
+              <button type="button" aria-pressed="false" data-rec="RM">
+                RM
+              </button>
+              <button
+                type="button"
+                aria-pressed="false"
+                data-rec="Counterparty"
+              >
+                Counterparty
+              </button>
+            </div>
+            <button type="button" class="go" id="simgo">Send test alert</button>
+          </div>
+          <p class="sim-note" id="simout" aria-live="polite">
+            Pick a recipient and press the button. This is an illustration with
+            sample data: the real system handles 12+ cases.
+          </p>
           <div class="cols">
             <div>
               <h4>Problem</h4>
@@ -663,14 +1491,27 @@
           </div>
         </article>
 
-        <article class="glass case tilt reveal" data-tilt>
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+        <article
+          data-skills="Java, Spring Boot, Node.js, TypeScript, AWS, Lambda, Batch, OpenSearch, Kibana, Redis, ElastiCache, PostgreSQL, Grafana"
+          class="glass case tilt reveal"
+          data-tilt
+        >
           <div>
-            <h3>Airline reservation and booking system</h3>
+            <h3>
+              Airline reservation and booking system
+              <span class="badge">Interactive</span>
+            </h3>
             <div class="tag">
               AlgoDomain Solutions. Java, Spring Boot, Node.js, TypeScript, AWS,
               OpenSearch, Redis, Grafana.
             </div>
           </div>
+          <p class="plain-text">
+            For an airline booking system, I helped bookings grow by 10% by
+            adding new airlines and return flights, and cut cloud costs by 20%
+            by clearing out unnecessary stored data.
+          </p>
           <div class="bars">
             <div class="bar">
               <span>Bookings, new airlines and round-trip</span
@@ -684,6 +1525,35 @@
               <span>Logging cost</span><i style="--w: 20%"></i><em>-20%</em>
             </div>
           </div>
+          <div
+            class="nodes"
+            id="nodes"
+            role="group"
+            aria-label="System components"
+          >
+            <span class="sim-note"
+              ><b>Explore:</b> click a part of the system.</span
+            >
+            <button type="button" aria-pressed="false" data-n="0">
+              New airlines + round-trip
+            </button>
+            <button type="button" aria-pressed="false" data-n="1">
+              Booking Lambdas
+            </button>
+            <button type="button" aria-pressed="false" data-n="2">
+              Redis cache
+            </button>
+            <button type="button" aria-pressed="false" data-n="3">
+              OpenSearch logs
+            </button>
+            <button type="button" aria-pressed="false" data-n="4">
+              ETL to PostgreSQL
+            </button>
+          </div>
+          <p class="sim-note node-detail" id="nodedetail" aria-live="polite">
+            Each part links to what I did and, where there is one, the result
+            above.
+          </p>
           <div class="cols">
             <div>
               <h4>Booking flow</h4>
@@ -710,7 +1580,12 @@
           </div>
         </article>
 
-        <article class="glass case tilt reveal" data-tilt>
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+        <article
+          data-skills="Java, Spring Boot, Maven, OpenRewrite, TypeScript, Next.js, Git"
+          class="glass case tilt reveal"
+          data-tilt
+        >
           <div>
             <h3>Version migration tool for banks</h3>
             <div class="tag">
@@ -718,6 +1593,10 @@
               Next.js, Next UI.
             </div>
           </div>
+          <p class="plain-text">
+            A tool that upgrades older software projects for banks
+            automatically, so people no longer have to do it by hand.
+          </p>
           <ol class="flow">
             <li><b>Pick a project</b>Front end or back end.</li>
             <li>
@@ -743,7 +1622,12 @@
           Side projects where I tried things out end to end.
         </p>
         <div class="grid">
-          <article class="glass card tilt reveal" data-tilt>
+          <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+          <article
+            data-skills="Java, Servlet, JSP, SQLite, JavaScript, jQuery, Ajax, Bootstrap, HTML5, CSS3"
+            class="glass card tilt reveal"
+            data-tilt
+          >
             <div class="thumb">
               <div class="top"><s></s><s></s><s></s></div>
               <img src="techBlog.webp" alt="Tech Blog project screenshot" />
@@ -763,13 +1647,15 @@
               >
             </div>
           </article>
-          <article class="glass card tilt reveal" data-tilt>
+          <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+          <article
+            data-skills="Node.js, Express.js, MongoDB, JavaScript, Passport.js, Handlebars"
+            class="glass card tilt reveal"
+            data-tilt
+          >
             <div class="thumb">
               <div class="top"><s></s><s></s><s></s></div>
-              <img
-                src="storyBooks.webp"
-                alt="StoryBooks project screenshot"
-              />
+              <img src="storyBooks.webp" alt="StoryBooks project screenshot" />
             </div>
             <h3>StoryBooks</h3>
             <p>
@@ -794,7 +1680,12 @@
     <section id="experience">
       <div class="wrap">
         <h2 class="reveal" style="margin-bottom: 1.6rem">Experience</h2>
-        <article class="glass job tilt reveal" data-tilt>
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+        <article
+          data-skills="Java, Spring Boot, XML, SFTP, Monolithic"
+          class="glass job tilt reveal"
+          data-tilt
+        >
           <header>
             <h3>Software Engineer, Intellect Design Arena</h3>
             <span class="when">Nov 2025 to present</span>
@@ -807,17 +1698,26 @@
               across 12+ cases.
             </li>
             <li>
-              Delivered other new features for the client bank in Java and
+              Work across CSOP's monolithic modules and the modules built on
+              internal frameworks, delivering new features (including advanced
+              ones on top of standard modules) for the client bank in Java and
               Spring Boot.
             </li>
           </ul>
         </article>
-        <article class="glass job tilt reveal" data-tilt>
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+        <article
+          data-skills="Java, Spring Boot, Node.js, TypeScript, React.js, Next.js, AWS, Lambda, Batch, OpenSearch, Redis, PostgreSQL, Grafana, Maven, OpenRewrite, Git, Event-driven, REST APIs"
+          class="glass job tilt reveal"
+          data-tilt
+        >
           <header>
             <h3>Senior Software Engineer, AlgoDomain Solutions</h3>
             <span class="when">Jul 2022 to Jul 2025</span>
           </header>
-          <p class="where">Pune. Banking, travel and version management tools.</p>
+          <p class="where">
+            Pune. Banking, travel and version management tools.
+          </p>
           <ul>
             <li>
               Built core components of an enterprise version management platform
@@ -841,7 +1741,12 @@
         </article>
         <!-- CONFIRM THESE DATES: this entry overlaps with AlgoDomain in your old CV. Fix or delete before publishing. -->
         <!-- CONFIRM these dates (your old site says Nov 2021 to Mar 2022, an older CV said Aug to Sep 2022) -->
-        <article class="glass job tilt reveal" data-tilt>
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+        <article
+          data-skills="Java, JSP, Servlet, jQuery, Ajax, Bootstrap, HTML5, CSS3, JavaScript"
+          class="glass job tilt reveal"
+          data-tilt
+        >
           <header>
             <h3>Freelance Web Developer</h3>
             <span class="when">Nov 2021 to Mar 2022</span>
@@ -861,7 +1766,18 @@
 
     <section id="skills">
       <div class="wrap">
-        <h2 class="reveal" style="margin-bottom: 1.6rem">Skills</h2>
+        <h2 class="reveal" style="margin-bottom: 1.6rem">
+          Skills <span class="badge">Interactive</span>
+        </h2>
+        <p class="muted" style="margin: -1rem 0 1.2rem; font-size: 0.92rem">
+          Tip: click any skill to see where I have used it. Try:
+          <button type="button" class="tryb" data-try="Redis">Redis</button
+          ><button type="button" class="tryb" data-try="React.js">
+            React.js</button
+          ><button type="button" class="tryb" data-try="OpenRewrite">
+            OpenRewrite
+          </button>
+        </p>
         <div class="glass sk reveal">
           <h3>Languages</h3>
           <ul class="pills">
@@ -908,6 +1824,13 @@
             <li>Redis</li>
             <li>SQLite</li>
           </ul>
+          <h3>Architecture</h3>
+          <ul class="pills">
+            <li>Microservices</li>
+            <li>Monolithic</li>
+            <li>REST APIs</li>
+            <li>Event-driven</li>
+          </ul>
           <h3>Tools and other</h3>
           <ul class="pills">
             <li>Maven</li>
@@ -932,7 +1855,8 @@
           Education and certification
         </h2>
         <!-- CONFIRM college name, dates and CGPA (CV says Punjabi University, old site says Mohindra College) -->
-        <article class="glass job tilt reveal" data-tilt>
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+        <article data-skills="" class="glass job tilt reveal" data-tilt>
           <header>
             <h3>MSc in Information Technology</h3>
             <span class="when">Dec 2020 to Jul 2022</span>
@@ -941,7 +1865,8 @@
             Mohindra College (Punjabi University), Patiala. CGPA 8.2/10.
           </p>
         </article>
-        <article class="glass job tilt reveal" data-tilt>
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+        <article data-skills="" class="glass job tilt reveal" data-tilt>
           <header>
             <h3>Bachelor of Computer Applications</h3>
             <span class="when">Jul 2017 to Jul 2020</span>
@@ -950,7 +1875,12 @@
             Mohindra College (Punjabi University), Patiala. CGPA 7.01/10.
           </p>
         </article>
-        <article class="glass job tilt reveal" data-tilt>
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+        <article
+          data-skills="Java, Spring Boot"
+          class="glass job tilt reveal"
+          data-tilt
+        >
           <header>
             <h3>Spring with Spring Boot</h3>
             <span class="when">Nov 2022</span>
@@ -982,6 +1912,14 @@
             <a class="btn fill" href="mailto:sachinsharmass790@gmail.com"
               >sachinsharmass790@gmail.com</a
             >
+            <button
+              type="button"
+              class="btn"
+              data-copy="sachinsharmass790@gmail.com"
+              style="font: inherit; cursor: pointer"
+            >
+              Copy email
+            </button>
             <a
               class="btn"
               href="tel:+919888260630"
@@ -1014,6 +1952,62 @@
       </div>
     </section>
 
+    <button class="fab" id="qaopen" type="button" aria-haspopup="dialog">
+      Ask me anything
+    </button>
+    <dialog id="qa" aria-labelledby="qat">
+      <div class="qa-head">
+        <h2 id="qat">Ask me anything</h2>
+        <button type="button" id="qaclose" aria-label="Close">&times;</button>
+      </div>
+      <div class="qchips" id="qchips"></div>
+      <div class="answer" id="answer" aria-live="polite"></div>
+      <div class="row" style="margin-top: 0">
+        <a class="btn fill" href="mailto:sachinsharmass790@gmail.com"
+          >Email me</a
+        ><button
+          type="button"
+          class="btn"
+          data-copy="sachinsharmass790@gmail.com"
+          style="font: inherit; cursor: pointer"
+        >
+          Copy email
+        </button>
+      </div>
+    </dialog>
+    <dialog id="jd" aria-labelledby="jdt">
+      <div class="qa-head">
+        <h2 id="jdt">Match a job description</h2>
+        <button type="button" id="jdclose" aria-label="Close">&times;</button>
+      </div>
+      <p class="muted" style="font-size: 0.92rem">
+        Paste a job ad and see which of its technologies are on my profile. It
+        runs in your browser and nothing is sent anywhere.
+      </p>
+      <textarea
+        id="jdtext"
+        placeholder="Paste the job description here"
+        aria-label="Job description"
+      ></textarea>
+      <div class="row">
+        <button
+          type="button"
+          class="btn fill"
+          id="jdgo"
+          style="font: inherit; cursor: pointer"
+        >
+          Check the match</button
+        ><button
+          type="button"
+          class="btn"
+          id="jdclear"
+          style="font: inherit; cursor: pointer"
+        >
+          Clear
+        </button>
+      </div>
+      <div class="answer" id="jdout" aria-live="polite" hidden></div>
+    </dialog>
     <script>
       (function () {
         var rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1073,6 +2067,949 @@
             });
           });
         }
+      })();
+    </script>
+    <script>
+      (function () {
+        var rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var fine = window.matchMedia("(hover: hover)").matches;
+        var toast = document.getElementById("toast"),
+          tt;
+        function say(msg, action) {
+          toast.innerHTML = "";
+          var t = document.createElement("span");
+          t.textContent = msg;
+          toast.appendChild(t);
+          if (action) {
+            var b = document.createElement("button");
+            b.type = "button";
+            b.textContent = action.label;
+            b.onclick = action.fn;
+            toast.appendChild(b);
+          }
+          toast.classList.add("show");
+          clearTimeout(tt);
+          tt = setTimeout(
+            function () {
+              toast.classList.remove("show");
+            },
+            action ? 6000 : 2200,
+          );
+        }
+
+        /* scroll progress */
+        var prog = document.querySelector(".prog");
+        function onScroll() {
+          var h = document.documentElement;
+          var p = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);
+          prog.style.setProperty("--p", Math.min(1, Math.max(0, p)).toFixed(3));
+        }
+        window.addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
+
+        /* cursor spotlight on glass */
+        if (!rm && fine) {
+          document.querySelectorAll(".glass").forEach(function (el) {
+            el.addEventListener("pointermove", function (e) {
+              var r = el.getBoundingClientRect();
+              el.style.setProperty("--mx", e.clientX - r.left + "px");
+              el.style.setProperty("--my", e.clientY - r.top + "px");
+            });
+          });
+        }
+
+        /* count-up numbers */
+        if (!rm) {
+          document.querySelectorAll(".chip b").forEach(function (b) {
+            var m = b.textContent.match(/^(\d+)(.*)$/);
+            if (!m) return;
+            var end = +m[1],
+              suf = m[2],
+              t0 = null;
+            function step(t) {
+              if (!t0) t0 = t;
+              var k = Math.min(1, (t - t0) / 900);
+              b.textContent = Math.round(end * (1 - Math.pow(1 - k, 3))) + suf;
+              if (k < 1) requestAnimationFrame(step);
+            }
+            b.textContent = "0" + suf;
+            requestAnimationFrame(step);
+          });
+        }
+
+        /* email routing simulator */
+        var rec = "Bank",
+          seg = document.querySelectorAll("#sim .seg button"),
+          go = document.getElementById("simgo"),
+          out = document.getElementById("simout"),
+          flow = document.getElementById("mailflow");
+        if (flow && go) {
+          var steps = flow.querySelectorAll("li");
+          seg.forEach(function (b) {
+            b.addEventListener("click", function () {
+              rec = b.getAttribute("data-rec");
+              seg.forEach(function (x) {
+                x.setAttribute("aria-pressed", x === b);
+              });
+            });
+          });
+          go.addEventListener("click", function () {
+            var msgs = [
+              "Test alert received as an XML file and an HTML file.",
+              "HTML is shown in the UI. XML is placed on a queue.",
+              "Encoded string of maintenance values sent to CS over SFTP.",
+              "Recipient type is " +
+                rec +
+                ". Finding the matching custom email.",
+              "CS is told to send the " +
+                rec +
+                " email, with all the data it needs.",
+            ];
+            flow.classList.add("armed");
+            steps.forEach(function (l) {
+              l.classList.remove("on");
+            });
+            go.disabled = true;
+            var i = 0;
+            (function next() {
+              steps[i].classList.add("on");
+              out.textContent = msgs[i];
+              i++;
+              if (i < steps.length) {
+                setTimeout(next, rm ? 0 : 750);
+              } else {
+                go.disabled = false;
+                go.textContent = "Send another";
+              }
+            })();
+          });
+        }
+
+        /* click a skill to see where it is used */
+        var cards = document.querySelectorAll("article"),
+          sel = null;
+        function clear() {
+          cards.forEach(function (c) {
+            c.classList.remove("dim", "hit");
+          });
+          document.querySelectorAll(".pills li.sel").forEach(function (l) {
+            l.classList.remove("sel");
+          });
+          sel = null;
+          toast.classList.remove("show");
+        }
+        function terms(t) {
+          return t
+            .replace(/\(.*?\)/g, "")
+            .split(/[\/,]/)
+            .map(function (x) {
+              return x.trim();
+            })
+            .filter(function (x) {
+              return x.length > 1;
+            });
+        }
+        function esc(x) {
+          return x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        }
+        function hasTag(tg, li) {
+          var have = tg.split(",").map(function (x) {
+            return x.trim().toLowerCase();
+          });
+          return terms(li.textContent).some(function (t) {
+            return have.indexOf(t.toLowerCase()) > -1;
+          });
+        }
+        document.querySelectorAll(".pills li").forEach(function (li) {
+          li.tabIndex = 0;
+          li.setAttribute("role", "button");
+          function pick() {
+            if (sel === li) {
+              clear();
+              return;
+            }
+            clear();
+            sel = li;
+            li.classList.add("sel");
+            var res = terms(li.textContent).map(function (t) {
+                return new RegExp(
+                  "(^|[^A-Za-z0-9])" + esc(t) + "($|[^A-Za-z0-9])",
+                  "i",
+                );
+              }),
+              first = null,
+              n = 0;
+            cards.forEach(function (c) {
+              var txt = c.textContent,
+                tg = c.getAttribute("data-skills"),
+                hit =
+                  tg !== null
+                    ? hasTag(tg, li)
+                    : res.some(function (r) {
+                        return r.test(txt);
+                      });
+              if (hit) {
+                c.classList.add("hit");
+                n++;
+                if (!first) first = c;
+              } else c.classList.add("dim");
+            });
+            var name = li.textContent.trim();
+            if (!n) {
+              say("No projects or roles mention " + name + " directly.", {
+                label: "Clear",
+                fn: clear,
+              });
+              return;
+            }
+            say(name + " appears in " + n + (n === 1 ? " place" : " places"), {
+              label: "Clear",
+              fn: clear,
+            });
+            first.scrollIntoView({
+              behavior: rm ? "auto" : "smooth",
+              block: "center",
+            });
+          }
+          li.addEventListener("click", pick);
+          li.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              pick();
+            }
+          });
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") clear();
+        });
+
+        /* copy email */
+        document.querySelectorAll("[data-copy]").forEach(function (b) {
+          b.addEventListener("click", function () {
+            var v = b.getAttribute("data-copy");
+            function ok() {
+              say("Email copied to clipboard");
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(v).then(ok, function () {
+                say(v);
+              });
+            } else {
+              say(v);
+            }
+          });
+        });
+      })();
+    </script>
+    <script>
+      (function () {
+        var rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var toast = document.getElementById("toast"),
+          tt;
+        function say(msg, label, fn) {
+          toast.innerHTML = "";
+          var t = document.createElement("span");
+          t.textContent = msg;
+          toast.appendChild(t);
+          if (label) {
+            var b = document.createElement("button");
+            b.type = "button";
+            b.textContent = label;
+            b.onclick = function () {
+              toast.classList.remove("show");
+              fn();
+            };
+            toast.appendChild(b);
+          }
+          toast.classList.add("show");
+          clearTimeout(tt);
+          tt = setTimeout(function () {
+            toast.classList.remove("show");
+          }, 6500);
+        }
+        function go(id) {
+          var el = document.getElementById(id);
+          if (el)
+            el.scrollIntoView({
+              behavior: rm ? "auto" : "smooth",
+              block: "center",
+            });
+        }
+
+        /* Ask me anything */
+        var Q = [
+          [
+            "Who are you?",
+            "Sachin Sharma, a backend engineer with 4+ years building Java, Spring Boot and AWS systems, with React and Node.js experience. Based in Pune, India, and open to relocation.",
+          ],
+          [
+            "What are you working on now?",
+            "At Intellect Design Arena I work on the Counterparty Onboarding Portal (CSOP) for a client bank. I built its custom email maintenance system, which routes alerts across 12+ recipient cases.",
+          ],
+          [
+            "Best result?",
+            "At AlgoDomain I removed 80% of redundant flight logs in AWS OpenSearch, which cut logging costs by 20%. New airline partners and round-trip search also increased bookings by 10%.",
+          ],
+          [
+            "Which domains?",
+            "Banking (CSOP and a dependency migration tool), travel (an airline reservation system) and version management (a GitHub-like platform for official documents and code).",
+          ],
+          [
+            "Tech stack?",
+            "Java, Spring Boot and AWS (Lambda, Batch, SQS, S3, OpenSearch), with Redis, PostgreSQL, Oracle and MySQL. On the front end I have used React.js, Next.js, Node.js and TypeScript.",
+          ],
+          [
+            "Open to relocate?",
+            "Yes. I am based in Pune, India, and open to relocation. Email is the quickest way to reach me.",
+          ],
+          [
+            "How to reach you?",
+            "Email sachinsharmass790@gmail.com, call or WhatsApp +91 9888260630, or find me on LinkedIn and GitHub.",
+          ],
+        ];
+        var dlg = document.getElementById("qa"),
+          chips = document.getElementById("qchips"),
+          ans = document.getElementById("answer"),
+          typer;
+        function show(i) {
+          chips.querySelectorAll("button").forEach(function (b, k) {
+            b.setAttribute("aria-pressed", k === i);
+          });
+          clearInterval(typer);
+          var txt = Q[i][1];
+          ans.innerHTML = "";
+          var p = document.createElement("p");
+          ans.appendChild(p);
+          if (rm) {
+            p.textContent = txt;
+            return;
+          }
+          var n = 0;
+          typer = setInterval(function () {
+            n += 2;
+            p.textContent = txt.slice(0, n);
+            if (n >= txt.length) clearInterval(typer);
+          }, 14);
+        }
+        Q.forEach(function (q, i) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.textContent = q[0];
+          b.setAttribute("aria-pressed", "false");
+          b.onclick = function () {
+            show(i);
+          };
+          chips.appendChild(b);
+        });
+        function open() {
+          if (dlg.showModal) {
+            if (!dlg.open) dlg.showModal();
+          } else dlg.setAttribute("open", "");
+          show(0);
+        }
+        document.getElementById("qaopen").onclick = open;
+        document.getElementById("qaclose").onclick = function () {
+          dlg.close ? dlg.close() : dlg.removeAttribute("open");
+        };
+        dlg.addEventListener("click", function (e) {
+          if (e.target === dlg) dlg.close();
+        });
+
+        /* hero invitations */
+        var simgo = document.getElementById("simgo");
+        document.querySelectorAll(".explore [data-act]").forEach(function (b) {
+          b.addEventListener("click", function () {
+            var a = b.getAttribute("data-act");
+            if (a === "qa") open();
+            if (a === "sim") {
+              go("sim");
+              setTimeout(
+                function () {
+                  if (simgo && !simgo.disabled) simgo.click();
+                },
+                rm ? 0 : 700,
+              );
+            }
+            if (a === "skill") {
+              go("skills");
+              setTimeout(
+                function () {
+                  tryPill("Redis");
+                },
+                rm ? 0 : 700,
+              );
+            }
+          });
+        });
+        function tryPill(name) {
+          var f = null;
+          document.querySelectorAll(".pills li").forEach(function (l) {
+            if (l.textContent.trim() === name) f = l;
+          });
+          if (f) f.click();
+        }
+        document.querySelectorAll("[data-try]").forEach(function (b) {
+          b.addEventListener("click", function () {
+            tryPill(b.getAttribute("data-try"));
+          });
+        });
+
+        /* simulator: stop pulsing once used, autoplay once when seen */
+        if (simgo) {
+          simgo.addEventListener("click", function () {
+            simgo.classList.add("used");
+          });
+          var sim = document.getElementById("sim");
+          if (!rm && "IntersectionObserver" in window && sim) {
+            var o = new IntersectionObserver(
+              function (es) {
+                es.forEach(function (x) {
+                  if (x.isIntersecting) {
+                    o.disconnect();
+                    setTimeout(function () {
+                      if (!simgo.classList.contains("used") && !simgo.disabled)
+                        simgo.click();
+                    }, 600);
+                  }
+                });
+              },
+              { threshold: 0.7 },
+            );
+            o.observe(sim);
+          }
+        }
+
+        /* one friendly nudge per visit */
+        var seen = false;
+        try {
+          seen = sessionStorage.getItem("nudged") === "1";
+        } catch (e) {}
+        if (!seen) {
+          setTimeout(function () {
+            if (dlg.open) return;
+            say("Psst: this page is interactive.", "Ask me anything", open);
+            try {
+              sessionStorage.setItem("nudged", "1");
+            } catch (e) {}
+          }, 8000);
+        }
+      })();
+    </script>
+    <script>
+      (function () {
+        var rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var work = document.getElementById("work");
+        var modes = document.querySelectorAll(".mode button");
+        function setMode(m) {
+          work.classList.toggle("plain", m === "plain");
+          modes.forEach(function (b) {
+            b.setAttribute("aria-pressed", b.getAttribute("data-mode") === m);
+          });
+        }
+        modes.forEach(function (b) {
+          b.addEventListener("click", function () {
+            setMode(b.getAttribute("data-mode"));
+          });
+        });
+        document
+          .querySelectorAll('.explore [data-act="plain"]')
+          .forEach(function (b) {
+            b.addEventListener("click", function () {
+              var t = document.querySelector(".mode");
+              if (t)
+                t.scrollIntoView({
+                  behavior: rm ? "auto" : "smooth",
+                  block: "center",
+                });
+              setTimeout(
+                function () {
+                  setMode("plain");
+                },
+                rm ? 0 : 600,
+              );
+            });
+          });
+
+        var N = [
+          [
+            "Integrated new airline partners and added round-trip search. Bookings went up by 10%.",
+            [0],
+          ],
+          [
+            "Java and TypeScript Lambdas covering flight search through to reservation. I built and worked on these.",
+            [],
+          ],
+          [
+            "I reverse-engineered the caching architecture, found ways to optimise it and reported the findings to senior management with charts.",
+            [],
+          ],
+          [
+            "I removed 80% of redundant flight logs in AWS OpenSearch, which cut logging costs by 20%.",
+            [1, 2],
+          ],
+          [
+            "A Spring Boot Lambda and Batch job that copies data from OpenSearch into PostgreSQL so it can be analysed.",
+            [],
+          ],
+        ];
+        var nb = document.querySelectorAll("#nodes button"),
+          nd = document.getElementById("nodedetail"),
+          bars = document.querySelectorAll("#work .bar"),
+          cur = -1;
+        function pick(i) {
+          bars.forEach(function (b) {
+            b.classList.remove("flag");
+          });
+          if (cur === i) {
+            cur = -1;
+            nb.forEach(function (b) {
+              b.setAttribute("aria-pressed", "false");
+            });
+            nd.textContent =
+              "Each part links to what I did and, where there is one, the result above.";
+            return;
+          }
+          cur = i;
+          nb.forEach(function (b, k) {
+            b.setAttribute("aria-pressed", k === i);
+          });
+          nd.textContent = N[i][0];
+          N[i][1].forEach(function (k) {
+            if (bars[k]) bars[k].classList.add("flag");
+          });
+        }
+        nb.forEach(function (b, i) {
+          b.addEventListener("click", function () {
+            pick(i);
+          });
+        });
+      })();
+    </script>
+    <script>
+      (function () {
+        var rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var bar = document.createElement("div");
+        bar.className = "fbar";
+        bar.setAttribute("role", "region");
+        bar.setAttribute("aria-label", "Active skill filter");
+        bar.innerHTML =
+          '<span id="fl"></span><button type="button" id="fprev" aria-label="Previous match">&lsaquo; Prev</button><button type="button" id="fnext" aria-label="Next match">Next &rsaquo;</button><button type="button" class="clr" id="fclr" aria-label="Clear skill filter">Clear &times;</button>';
+        document.body.appendChild(bar);
+        var fl = document.getElementById("fl"),
+          prev = document.getElementById("fprev"),
+          next = document.getElementById("fnext"),
+          idx = 0,
+          lastName = "";
+        function hits() {
+          return Array.prototype.slice.call(
+            document.querySelectorAll("article.hit"),
+          );
+        }
+        function label() {
+          var li = document.querySelector(".pills li.sel");
+          if (!li) return;
+          var h = hits(),
+            name = li.textContent.trim();
+          fl.textContent = "";
+          fl.appendChild(document.createTextNode("Showing: "));
+          var b = document.createElement("b");
+          b.textContent = name;
+          fl.appendChild(b);
+          fl.appendChild(
+            document.createTextNode(
+              h.length
+                ? " (" + (idx + 1) + " of " + h.length + ")"
+                : " (no matches)",
+            ),
+          );
+        }
+        function sync() {
+          var li = document.querySelector(".pills li.sel");
+          if (!li) {
+            bar.classList.remove("show");
+            document.body.classList.remove("filtering");
+            lastName = "";
+            return;
+          }
+          var name = li.textContent.trim();
+          if (name !== lastName) {
+            idx = 0;
+            lastName = name;
+          }
+          var h = hits();
+          prev.style.display = next.style.display = h.length > 1 ? "" : "none";
+          label();
+          bar.classList.add("show");
+          document.body.classList.add("filtering");
+          var t = document.getElementById("toast");
+          if (t) t.classList.remove("show");
+        }
+        var sk = document.getElementById("skills");
+        if (sk)
+          new MutationObserver(sync).observe(sk, {
+            attributes: true,
+            subtree: true,
+            attributeFilter: ["class"],
+          });
+        function step(d) {
+          var h = hits();
+          if (!h.length) return;
+          idx = (idx + d + h.length) % h.length;
+          label();
+          h[idx].scrollIntoView({
+            behavior: rm ? "auto" : "smooth",
+            block: "center",
+          });
+        }
+        prev.addEventListener("click", function () {
+          step(-1);
+        });
+        next.addEventListener("click", function () {
+          step(1);
+        });
+        document.getElementById("fclr").addEventListener("click", function () {
+          var li = document.querySelector(".pills li.sel");
+          if (li) li.click();
+        });
+      })();
+    </script>
+    <script>
+      (function () {
+        var rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var root = document.documentElement;
+
+        /* live days counter */
+        function startDays() {
+          var el = document.getElementById("days");
+          if (!el) return;
+          var n = Math.floor((Date.now() - Date.UTC(2022, 6, 1)) / 864e5);
+          if (rm) {
+            el.textContent = n.toLocaleString();
+            return;
+          }
+          var t0 = null;
+          function f(t) {
+            if (!t0) t0 = t;
+            var k = Math.min(1, (t - t0) / 1200);
+            el.textContent = Math.round(
+              n * (1 - Math.pow(1 - k, 3)),
+            ).toLocaleString();
+            if (k < 1) requestAnimationFrame(f);
+          }
+          requestAnimationFrame(f);
+        }
+
+        /* opening animation: the oracle orb */
+        var intro = document.getElementById("intro");
+        if (intro && root.classList.contains("intro-on")) {
+          document.querySelectorAll(".hero .glass>*").forEach(function (e, i) {
+            e.style.setProperty("--i", i);
+          });
+          var done = false,
+            speaking = false,
+            timers = [],
+            audio = null;
+          var caps = intro.querySelectorAll(".cap p"),
+            hint = document.getElementById("hint");
+          var canSpeak = "speechSynthesis" in window;
+          function after(ms, fn) {
+            timers.push(setTimeout(fn, ms));
+          }
+          function finish() {
+            if (done) return;
+            done = true;
+            timers.forEach(clearTimeout);
+            try {
+              if (canSpeak) speechSynthesis.cancel();
+              if (audio) audio.pause();
+            } catch (e) {}
+            try {
+              sessionStorage.setItem("introSeen", "1");
+            } catch (e) {}
+            intro.classList.remove("speaking");
+            intro.classList.add("done");
+            document.body.classList.add("hero-in");
+            setTimeout(function () {
+              intro.remove();
+            }, 1000);
+            setTimeout(function () {
+              root.classList.remove("intro-on");
+              document.body.classList.remove("hero-in");
+              startDays();
+            }, 1700);
+          }
+          function spoken(ms) {
+            intro.classList.remove("speaking");
+            after(ms, finish);
+          }
+          function speak() {
+            if (speaking || done) return;
+            speaking = true;
+            timers.forEach(clearTimeout);
+            timers = [];
+            after(16000, finish);
+            caps[0].classList.add("in");
+            caps[1].classList.add("in");
+            intro.classList.add("formed", "speaking");
+            hint.classList.remove("in");
+            function viaSpeech() {
+              if (!canSpeak) {
+                spoken(2200);
+                return;
+              }
+              var u = new SpeechSynthesisUtterance(
+                "Welcome to my portfolio. Your search will end here.",
+              );
+              u.lang = "en-US";
+              u.rate = 0.9;
+              u.pitch = 0.85;
+              u.onend = function () {
+                spoken(900);
+              };
+              u.onerror = function () {
+                spoken(600);
+              };
+              speechSynthesis.cancel();
+              speechSynthesis.speak(u);
+            }
+            try {
+              audio = new Audio("welcome.mp3");
+              audio.onended = function () {
+                spoken(900);
+              };
+              var pr = audio.play();
+              if (pr && pr.catch) pr.catch(viaSpeech);
+            } catch (e) {
+              viaSpeech();
+            }
+          }
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              intro.classList.add("draw");
+            });
+          });
+          after(2300, function () {
+            intro.classList.add("formed");
+          });
+          after(2800, function () {
+            caps[0].classList.add("in");
+          });
+          after(3500, function () {
+            caps[1].classList.add("in");
+          });
+          after(3900, function () {
+            hint.classList.add("in");
+          });
+          after(8500, function () {
+            if (!speaking) finish();
+          });
+          intro.addEventListener("click", function (e) {
+            if (e.target.id !== "introskip") speak();
+          });
+          document
+            .getElementById("introskip")
+            .addEventListener("click", finish);
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") finish();
+          });
+        } else {
+          if (intro) intro.remove();
+          startDays();
+        }
+
+        /* job description matcher */
+        var jd = document.getElementById("jd"),
+          jt = document.getElementById("jdtext"),
+          jo = document.getElementById("jdout");
+        function esc(x) {
+          return x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        }
+        function rx(t) {
+          var cs = t.length <= 5 && /[A-Z]/.test(t) && t === t.toUpperCase();
+          return new RegExp(
+            "(^|[^A-Za-z0-9])" + esc(t) + "($|[^A-Za-z0-9])",
+            cs ? "" : "i",
+          );
+        }
+        var skip = { PL: 1, Batch: 1, C: 1 };
+        var mine = {};
+        document.querySelectorAll(".pills li").forEach(function (li) {
+          li.textContent
+            .replace(/\(.*?\)/g, "")
+            .split(/[\/,]/)
+            .forEach(function (x) {
+              x = x.trim();
+              if (x.length > 1 && !skip[x] && !mine[x.toLowerCase()])
+                mine[x.toLowerCase()] = { t: x, li: li };
+            });
+        });
+        var other = [
+          "Docker",
+          "Kubernetes",
+          "Kafka",
+          "Python",
+          "Golang",
+          "C#",
+          ".NET",
+          "Terraform",
+          "Jenkins",
+          "CI/CD",
+          "Angular",
+          "Vue",
+          "GraphQL",
+          "Azure",
+          "GCP",
+          "RabbitMQ",
+          "Scala",
+          "Kotlin",
+          "PHP",
+          "Ansible",
+          "Prometheus",
+        ];
+        function chips(list, btn, onclick) {
+          var w = document.createElement("div");
+          w.className = "jdchips";
+          list.forEach(function (x) {
+            var e = document.createElement(btn ? "button" : "span");
+            if (btn) e.type = "button";
+            e.textContent = x.t || x;
+            if (onclick)
+              e.onclick = function () {
+                onclick(x);
+              };
+            w.appendChild(e);
+          });
+          return w;
+        }
+        function p(txt, cls) {
+          var e = document.createElement("p");
+          if (cls) e.className = cls;
+          e.style.margin = "0 0 .4rem";
+          e.textContent = txt;
+          return e;
+        }
+        function check() {
+          var text = jt.value;
+          jo.hidden = false;
+          jo.innerHTML = "";
+          if (text.trim().length < 10) {
+            jo.appendChild(p("Paste a job description first."));
+            return;
+          }
+          var have = Object.keys(mine)
+            .map(function (k) {
+              return mine[k];
+            })
+            .filter(function (m) {
+              return rx(m.t).test(text);
+            });
+          var miss = other.filter(function (t) {
+            return rx(t).test(text);
+          });
+          if (have.length) {
+            jo.appendChild(
+              p(
+                have.length +
+                  (have.length === 1 ? " technology" : " technologies") +
+                  " from this job description " +
+                  (have.length === 1 ? "is" : "are") +
+                  " on my profile. Click one to see where I used it.",
+              ),
+            );
+            jo.appendChild(
+              chips(have, true, function (m) {
+                jd.close();
+                setTimeout(function () {
+                  m.li.click();
+                }, 200);
+              }),
+            );
+          } else
+            jo.appendChild(
+              p(
+                "None of my listed technologies appear in that text. Check that you pasted the requirements.",
+              ),
+            );
+          if (miss.length) {
+            jo.appendChild(
+              p("Mentioned in the ad but not listed on this page:"),
+            );
+            jo.appendChild(chips(miss, false));
+          }
+          jo.appendChild(
+            p(
+              "This is a keyword match only. It does not judge experience level or fit.",
+              "jdnote",
+            ),
+          );
+        }
+        if (jd) {
+          document.getElementById("jdgo").onclick = check;
+          document.getElementById("jdclear").onclick = function () {
+            jt.value = "";
+            jo.hidden = true;
+            jo.innerHTML = "";
+            jt.focus();
+          };
+          document.getElementById("jdclose").onclick = function () {
+            jd.close();
+          };
+          jd.addEventListener("click", function (e) {
+            if (e.target === jd) jd.close();
+          });
+          document
+            .querySelectorAll('.explore [data-act="jd"]')
+            .forEach(function (b) {
+              b.addEventListener("click", function () {
+                if (jd.showModal) jd.showModal();
+                else jd.setAttribute("open", "");
+                jt.focus();
+              });
+            });
+        }
+      })();
+    </script>
+    <script>
+      (function () {
+        if (location.search.indexOf("debug") < 0) return;
+        document.body.classList.add("debug");
+        var tagged = [].map.call(
+          document.querySelectorAll("article[data-skills]"),
+          function (a) {
+            return a
+              .getAttribute("data-skills")
+              .split(",")
+              .map(function (x) {
+                return x.trim().toLowerCase();
+              });
+          },
+        );
+        var miss = [];
+        document.querySelectorAll(".pills li").forEach(function (li) {
+          var ts = li.textContent
+            .replace(/\(.*?\)/g, "")
+            .split(/[\/,]/)
+            .map(function (x) {
+              return x.trim().toLowerCase();
+            })
+            .filter(Boolean);
+          var ok = tagged.some(function (list) {
+            return ts.some(function (t) {
+              return list.indexOf(t) > -1;
+            });
+          });
+          if (!ok) {
+            li.classList.add("untagged");
+            li.title = "Not tagged in any data-skills yet";
+            miss.push(li.textContent.trim());
+          }
+        });
+        console.log(
+          "Skills not tagged anywhere yet (" +
+            miss.length +
+            "): " +
+            miss.join(", "),
+        );
       })();
     </script>
   </body>

@@ -1,0 +1,1079 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Sachin Sharma, Backend Engineer (Java, Spring Boot, AWS)</title>
+    <meta
+      name="description"
+      content="Backend engineer with 4+ years in banking and travel systems. Case studies, projects and experience."
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap"
+    />
+    <style>
+      :root {
+        --ink: #16202e;
+        --muted: #4d5a6d;
+        --accent: #2b4f8f;
+        --glass: rgba(255, 255, 255, 0.55);
+        --glass2: rgba(255, 255, 255, 0.4);
+        --edge: rgba(255, 255, 255, 0.75);
+        --shadow: rgba(30, 45, 75, 0.18);
+        --b1: #bfd0ee;
+        --b2: #d8dff0;
+        --b3: #c9e0e6;
+        --base: #e9edf4;
+        --serif: "Newsreader", Georgia, serif;
+        --sans:
+          "Public Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --ink: #eaf0fa;
+          --muted: #a3afc2;
+          --accent: #9fbdf0;
+          --glass: rgba(255, 255, 255, 0.09);
+          --glass2: rgba(255, 255, 255, 0.06);
+          --edge: rgba(255, 255, 255, 0.2);
+          --shadow: rgba(0, 0, 0, 0.45);
+          --b1: #2b4470;
+          --b2: #2c3350;
+          --b3: #1f4552;
+          --base: #0f141d;
+        }
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        font: 400 1rem/1.65 var(--sans);
+        background: var(--base);
+        -webkit-text-size-adjust: 100%;
+        padding-bottom: calc(6rem + env(safe-area-inset-bottom, 0px));
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background:
+          radial-gradient(40rem 32rem at 12% 8%, var(--b1), transparent 70%),
+          radial-gradient(38rem 30rem at 90% 30%, var(--b2), transparent 70%),
+          radial-gradient(42rem 34rem at 30% 95%, var(--b3), transparent 70%),
+          var(--base);
+      }
+      a {
+        color: var(--accent);
+        text-underline-offset: 3px;
+      }
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+        border-radius: 6px;
+      }
+      .wrap {
+        max-width: 62rem;
+        margin: 0 auto;
+        padding: 0 1.25rem;
+      }
+      section {
+        padding: 3rem 0;
+      }
+      .glass {
+        background: var(--glass2);
+        border: 1px solid var(--edge);
+        border-radius: 28px;
+        box-shadow:
+          0 24px 48px -20px var(--shadow),
+          inset 0 1px 0 var(--edge);
+      }
+      @supports (backdrop-filter: blur(1px)) or
+        (-webkit-backdrop-filter: blur(1px)) {
+        .glass,
+        .dock,
+        .chip {
+          background: var(--glass);
+          -webkit-backdrop-filter: blur(28px) saturate(170%);
+          backdrop-filter: blur(28px) saturate(170%);
+        }
+      }
+      .tilt {
+        transform: perspective(1000px) rotateX(var(--rx, 0deg))
+          rotateY(var(--ry, 0deg));
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+        will-change: transform;
+      }
+      .tilt:hover {
+        box-shadow:
+          0 36px 60px -22px var(--shadow),
+          inset 0 1px 0 var(--edge);
+      }
+      h1 {
+        font: 600 clamp(2.6rem, 8vw, 4.6rem)/1.03 var(--serif);
+        letter-spacing: -0.025em;
+        margin: 0 0 1rem;
+      }
+      h2 {
+        font: 600 1.8rem/1.2 var(--serif);
+        margin: 0 0 0.4rem;
+      }
+      h3 {
+        font: 600 1.1rem/1.4 var(--sans);
+        margin: 0;
+      }
+      p {
+        margin: 0 0 1rem;
+        max-width: 40rem;
+      }
+      .sub {
+        color: var(--muted);
+        margin-bottom: 1.8rem;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .lead {
+        font: 500 clamp(1.2rem, 3vw, 1.45rem)/1.45 var(--serif);
+        max-width: 36rem;
+      }
+      .hero {
+        padding-top: 4rem;
+      }
+      .hero .glass {
+        padding: clamp(1.6rem, 5vw, 3.2rem);
+        position: relative;
+      }
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--muted);
+        margin-bottom: 1.2rem;
+      }
+      .status::before {
+        content: "";
+        width: 0.55rem;
+        height: 0.55rem;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem 1.2rem;
+        align-items: center;
+        margin-top: 1.4rem;
+      }
+      .btn {
+        display: inline-block;
+        padding: 0.65rem 1.2rem;
+        border-radius: 999px;
+        border: 1px solid var(--edge);
+        text-decoration: none;
+        font-weight: 500;
+        color: var(--ink);
+        background: var(--glass2);
+      }
+      .btn.fill {
+        background: var(--accent);
+        color: #fff;
+        border-color: transparent;
+      }
+      .whatsapp-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        min-height: 2.8rem;
+        padding: 0.65rem 1.2rem;
+        border: 1px solid var(--edge);
+        border-radius: 999px;
+        background: var(--glass2);
+        color: var(--ink);
+        font-weight: 500;
+        text-decoration: none;
+        box-shadow: inset 0 1px 0 var(--edge);
+        transition: none;
+      }
+      .whatsapp-link svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        flex: none;
+        fill: currentColor;
+      }
+      .whatsapp-link:hover,
+      .whatsapp-link:focus-visible {
+        transform: none;
+        border-color: var(--edge);
+        background: var(--glass2);
+        color: var(--ink);
+      }
+      .social-row {
+        margin-top: 0.8rem;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+        margin-top: 2rem;
+      }
+      .chip {
+        padding: 0.7rem 1.1rem;
+        border-radius: 20px;
+        border: 1px solid var(--edge);
+        box-shadow: 0 14px 28px -14px var(--shadow);
+        animation: fl 6s ease-in-out infinite;
+      }
+      .chip:nth-child(2) {
+        animation-delay: -1.5s;
+      }
+      .chip:nth-child(3) {
+        animation-delay: -3s;
+      }
+      .chip:nth-child(4) {
+        animation-delay: -4.5s;
+      }
+      .chip b {
+        display: block;
+        font: 600 1.6rem/1.1 var(--serif);
+        color: var(--accent);
+      }
+      .chip span {
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+      @keyframes fl {
+        50% {
+          transform: translateY(-7px);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .chip {
+          animation: none;
+        }
+        .tilt {
+          transition: none;
+        }
+      }
+      .case {
+        padding: clamp(1.4rem, 4vw, 2.2rem);
+        margin-bottom: 1.8rem;
+        display: grid;
+        gap: 1.3rem;
+      }
+      .tag {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      ol.flow {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+        gap: 0.8rem;
+        counter-reset: s;
+      }
+      ol.flow li {
+        counter-increment: s;
+        background: var(--glass2);
+        border: 1px solid var(--edge);
+        border-radius: 18px;
+        padding: 0.8rem;
+        font-size: 0.9rem;
+        line-height: 1.45;
+        box-shadow: inset 0 1px 0 var(--edge);
+      }
+      ol.flow li:nth-child(even) {
+        transform: translateY(6px);
+      }
+      ol.flow li::before {
+        content: counter(s);
+        display: block;
+        font: 600 0.8rem var(--sans);
+        color: var(--accent);
+        margin-bottom: 0.2rem;
+      }
+      ol.flow b {
+        display: block;
+        margin-bottom: 0.15rem;
+      }
+      .cols {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+        gap: 1.4rem;
+      }
+      .cols h4 {
+        margin: 0 0 0.3rem;
+        font: 600 0.8rem var(--sans);
+        color: var(--muted);
+      }
+      .cols p {
+        margin: 0;
+        font-size: 0.97rem;
+      }
+      .bars {
+        display: grid;
+        gap: 0.9rem;
+      }
+      .bar {
+        display: grid;
+        grid-template-columns: 12rem 1fr 3.5rem;
+        gap: 0.8rem;
+        align-items: center;
+        font-size: 0.92rem;
+      }
+      .bar i {
+        display: block;
+        height: 0.75rem;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--accent), var(--b1));
+        width: var(--w);
+      }
+      .bar em {
+        font-style: normal;
+        font-weight: 600;
+        text-align: right;
+      }
+      @media (max-width: 36rem) {
+        .bar {
+          grid-template-columns: 1fr 3rem;
+        }
+        .bar i {
+          grid-column: 1/-1;
+          grid-row: 2;
+        }
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+        gap: 1.6rem;
+      }
+      .card {
+        padding: 1.1rem 1.1rem 1.4rem;
+      }
+      .thumb {
+        aspect-ratio: 16/9;
+        border-radius: 18px;
+        overflow: hidden;
+        margin-bottom: 0.9rem;
+        border: 1px solid var(--edge);
+        display: flex;
+        flex-direction: column;
+        background: var(--glass2);
+      }
+      .thumb .top {
+        display: flex;
+        gap: 0.3rem;
+        padding: 0.5rem;
+        border-bottom: 1px solid var(--edge);
+      }
+      .thumb s {
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: var(--edge);
+      }
+      .thumb .body {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .card p {
+        margin: 0.3rem 0 0.5rem;
+      }
+      .stack {
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+      .job {
+        padding: 1.3rem 1.5rem;
+        margin-bottom: 1.2rem;
+      }
+      .job header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.1rem 1rem;
+      }
+      .when {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .where {
+        color: var(--muted);
+        margin: 0 0 0.4rem;
+      }
+      .job ul {
+        margin: 0.3rem 0 0;
+        padding-left: 1.1rem;
+      }
+      .job li {
+        margin: 0 0 0.35rem;
+      }
+      .sk {
+        padding: 1.6rem;
+      }
+      .sk h3 {
+        font-size: 0.9rem;
+        color: var(--muted);
+        margin: 1rem 0 0.4rem;
+      }
+      .sk h3:first-child {
+        margin-top: 0;
+      }
+      .pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .pills li {
+        padding: 0.25rem 0.8rem;
+        border: 1px solid var(--edge);
+        border-radius: 999px;
+        background: var(--glass2);
+        font-size: 0.9rem;
+      }
+      .dock {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+        z-index: 20;
+        max-width: calc(100% - 1.5rem);
+        border: 1px solid var(--edge);
+        border-radius: 999px;
+        box-shadow:
+          0 20px 40px -12px var(--shadow),
+          inset 0 1px 0 var(--edge);
+        background: var(--glass);
+      }
+      .dock ul {
+        display: flex;
+        gap: 0.2rem;
+        margin: 0;
+        padding: 0.4rem;
+        list-style: none;
+        overflow-x: auto;
+      }
+      .dock a {
+        display: block;
+        padding: 0.5rem 0.9rem;
+        border-radius: 999px;
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.92rem;
+        white-space: nowrap;
+      }
+      .dock a:hover {
+        color: var(--ink);
+      }
+      .dock a[aria-current="true"] {
+        background: var(--accent);
+        color: #fff;
+      }
+      .js .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .js .reveal.in {
+        opacity: 1;
+        transform: none;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .js .reveal {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
+      footer {
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.9rem;
+        padding-top: 1rem;
+      }
+    </style>
+    <script>
+      document.documentElement.className = "js";
+    </script>
+  </head>
+  <body>
+    <nav class="dock" aria-label="Sections">
+      <ul>
+        <li><a href="#top">Home</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <section class="hero" id="top">
+      <div class="wrap">
+        <div class="glass tilt" data-tilt>
+          <div class="status">Pune, India. Open to relocation.</div>
+          <h1>Backend systems for banks, airlines and versioning.</h1>
+          <p class="lead">
+            I'm Sachin Sharma, a backend engineer with full-stack experience in
+            React and Node.js. I build Java, Spring Boot and AWS systems, and I
+            like the integration problems in the middle.
+          </p>
+          <div class="row">
+            <a class="btn fill" href="#work">See my work</a>
+            <a class="btn" href="SachinSharmaResume.pdf">Resume (PDF)</a>
+            <a href="https://github.com/semantic-void">GitHub</a>
+            <a href="https://www.linkedin.com/in/sachin-sharma-cs/">LinkedIn</a>
+          </div>
+          <div class="chips">
+            <div class="chip"><b>4+</b><span>years in backend</span></div>
+            <div class="chip">
+              <b>3</b><span>domains: banking, travel, version management</span>
+            </div>
+            <div class="chip"><b>10%</b><span>more bookings</span></div>
+            <div class="chip"><b>20%</b><span>lower logging cost</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="wrap">
+        <h2 class="reveal">Selected work</h2>
+        <p class="sub reveal">
+          Four systems I worked on, what I built, and what changed.
+        </p>
+
+        <!-- CHECK with your employer that this level of detail is OK to share publicly -->
+        <article class="glass case tilt reveal" data-tilt>
+          <div>
+            <h3>Enterprise version management platform</h3>
+            <div class="tag">
+              AlgoDomain Solutions. Java, Spring Boot, React.js, AWS,
+              event-driven architecture.
+            </div>
+          </div>
+          <div class="cols">
+            <div>
+              <h4>What it is</h4>
+              <p>
+                A platform like GitHub for versioning official documents and
+                code, built as an event-driven system.
+              </p>
+            </div>
+            <div>
+              <h4>What I built</h4>
+              <p>
+                Core components and key modules, working as a Java developer
+                across the whole development lifecycle.
+              </p>
+            </div>
+            <div>
+              <h4>Also</h4>
+              <p>
+                Built a related version migration tool, described below, for
+                upgrading banking projects.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article class="glass case tilt reveal" data-tilt>
+          <div>
+            <h3>Custom email maintenance system</h3>
+            <div class="tag">
+              Intellect Design Arena, CSOP platform, client bank. Java, Spring
+              Boot, queues, SFTP.
+            </div>
+          </div>
+          <ol class="flow">
+            <li><b>Email arrives</b>As an XML file and an HTML file.</li>
+            <li><b>Split</b>HTML is shown in the UI. XML goes to a queue.</li>
+            <li>
+              <b>Transfer</b>Server-to-server SFTP sends an encoded string of
+              maintenance values to CS.
+            </li>
+            <li>
+              <b>Route</b>Checks if the alert is for a bank, anchor, RM or
+              counterparty: 12+ cases.
+            </li>
+            <li>
+              <b>Trigger</b>CS is told which custom email to send, with all the
+              data it needs.
+            </li>
+          </ol>
+          <div class="cols">
+            <div>
+              <h4>Problem</h4>
+              <p>
+                Maintenance emails had to reach the right people with the right
+                template, and the data had to move between two internal systems
+                reliably.
+              </p>
+            </div>
+            <div>
+              <h4>What I built</h4>
+              <p>
+                The intake, the queue and SFTP hand-off to CS, and the routing
+                logic that picks the custom email.
+              </p>
+            </div>
+            <div>
+              <h4>Result</h4>
+              <p>[Add one measurable outcome, or delete this box.]</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="glass case tilt reveal" data-tilt>
+          <div>
+            <h3>Airline reservation and booking system</h3>
+            <div class="tag">
+              AlgoDomain Solutions. Java, Spring Boot, Node.js, TypeScript, AWS,
+              OpenSearch, Redis, Grafana.
+            </div>
+          </div>
+          <div class="bars">
+            <div class="bar">
+              <span>Bookings, new airlines and round-trip</span
+              ><i style="--w: 10%"></i><em>+10%</em>
+            </div>
+            <div class="bar">
+              <span>Redundant flight logs removed</span><i style="--w: 80%"></i
+              ><em>-80%</em>
+            </div>
+            <div class="bar">
+              <span>Logging cost</span><i style="--w: 20%"></i><em>-20%</em>
+            </div>
+          </div>
+          <div class="cols">
+            <div>
+              <h4>Booking flow</h4>
+              <p>
+                Java and TypeScript Lambdas covering flight search through to
+                reservation, and upgrades that kept the international booking
+                system competitive.
+              </p>
+            </div>
+            <div>
+              <h4>Data</h4>
+              <p>
+                A Spring Boot Lambda and Batch ETL pipeline moving data from
+                OpenSearch to PostgreSQL for analysis.
+              </p>
+            </div>
+            <div>
+              <h4>Caching</h4>
+              <p>
+                Reverse-engineered and optimised the Redis caching architecture,
+                then reported findings to senior management with charts.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article class="glass case tilt reveal" data-tilt>
+          <div>
+            <h3>Version migration tool for banks</h3>
+            <div class="tag">
+              AlgoDomain Solutions. Spring Boot, Maven, OpenRewrite, TypeScript,
+              Next.js, Next UI.
+            </div>
+          </div>
+          <ol class="flow">
+            <li><b>Pick a project</b>Front end or back end.</li>
+            <li>
+              <b>Update dependencies</b>Automated with OpenRewrite and Maven.
+            </li>
+            <li>
+              <b>Git operations</b>Changes applied and tracked automatically.
+            </li>
+          </ol>
+          <p class="muted" style="margin: 0">
+            Replaced a manual, repetitive upgrade process with one tool that
+            moves dependencies and code for both front-end and back-end
+            projects.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="wrap">
+        <h2 class="reveal">Personal projects</h2>
+        <p class="sub reveal">
+          Side projects where I tried things out end to end.
+        </p>
+        <div class="grid">
+          <article class="glass card tilt reveal" data-tilt>
+            <div class="thumb">
+              <div class="top"><s></s><s></s><s></s></div>
+              <img src="techBlog.webp" alt="Tech Blog project screenshot" />
+            </div>
+            <h3>Tech Blog</h3>
+            <p>
+              A Q&amp;A platform where programmers share information and like
+              posts, with sign-up, login and profile management.
+            </p>
+            <div class="stack">
+              Java, JSP, Servlets, SQLite, Ajax, jQuery, Bootstrap, Tomcat
+            </div>
+            <div class="row">
+              <a
+                href="https://github.com/semantic-void/Projects/tree/master/TechBlog"
+                >GitHub</a
+              >
+            </div>
+          </article>
+          <article class="glass card tilt reveal" data-tilt>
+            <div class="thumb">
+              <div class="top"><s></s><s></s><s></s></div>
+              <img
+                src="storyBooks.webp"
+                alt="StoryBooks project screenshot"
+              />
+            </div>
+            <h3>StoryBooks</h3>
+            <p>
+              Create, edit and delete public or private stories, browse other
+              people's public stories, and sign in with Google.
+            </p>
+            <div class="stack">
+              Node.js, Express, Handlebars, Passport.js, Google Auth, MongoDB
+              Atlas
+            </div>
+            <div class="row">
+              <a href="https://storybooks-5spl.onrender.com">Live site</a
+              ><a href="https://github.com/semantic-void/MyStoryBooks"
+                >GitHub</a
+              >
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="wrap">
+        <h2 class="reveal" style="margin-bottom: 1.6rem">Experience</h2>
+        <article class="glass job tilt reveal" data-tilt>
+          <header>
+            <h3>Software Engineer, Intellect Design Arena</h3>
+            <span class="when">Nov 2025 to present</span>
+          </header>
+          <p class="where">Pune. Wholesale banking, CSOP platform.</p>
+          <ul>
+            <li>
+              Designed and built the custom email maintenance system for a
+              client bank, from XML and HTML intake to SFTP transfer and routing
+              across 12+ cases.
+            </li>
+            <li>
+              Delivered other new features for the client bank in Java and
+              Spring Boot.
+            </li>
+          </ul>
+        </article>
+        <article class="glass job tilt reveal" data-tilt>
+          <header>
+            <h3>Senior Software Engineer, AlgoDomain Solutions</h3>
+            <span class="when">Jul 2022 to Jul 2025</span>
+          </header>
+          <p class="where">Pune. Banking, travel and version management tools.</p>
+          <ul>
+            <li>
+              Built core components of an enterprise version management platform
+              (like GitHub, for complex official documents and code) using
+              event-driven architecture.
+            </li>
+            <li>
+              Developed and optimised an airline reservation system; raised
+              bookings by 10% and cut logging costs by 20%.
+            </li>
+            <li>
+              Built a version migration tool for the banking sector with
+              automated dependency updates and Git operations.
+            </li>
+            <li>Coordinated a team on delivery, punctuality and quality.</li>
+            <li>
+              Investigated unusual claims, cases and incidents, and fixed the
+              issues found on our side.
+            </li>
+          </ul>
+        </article>
+        <!-- CONFIRM THESE DATES: this entry overlaps with AlgoDomain in your old CV. Fix or delete before publishing. -->
+        <!-- CONFIRM these dates (your old site says Nov 2021 to Mar 2022, an older CV said Aug to Sep 2022) -->
+        <article class="glass job tilt reveal" data-tilt>
+          <header>
+            <h3>Freelance Web Developer</h3>
+            <span class="when">Nov 2021 to Mar 2022</span>
+          </header>
+          <p class="where">
+            B2B e-commerce site for an iron and steel startup.
+          </p>
+          <ul>
+            <li>
+              Java 17, JSP and Servlets backend with a mobile-friendly front end
+              in jQuery, Ajax, Bootstrap, HTML5 and CSS3.
+            </li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="wrap">
+        <h2 class="reveal" style="margin-bottom: 1.6rem">Skills</h2>
+        <div class="glass sk reveal">
+          <h3>Languages</h3>
+          <ul class="pills">
+            <li>Java</li>
+            <li>TypeScript</li>
+            <li>JavaScript</li>
+            <li>SQL</li>
+            <li>PL/SQL</li>
+          </ul>
+          <h3>Backend frameworks</h3>
+          <ul class="pills">
+            <li>Spring Boot</li>
+            <li>Servlet / JSP</li>
+            <li>Node.js</li>
+            <li>Express.js</li>
+          </ul>
+          <h3>Front end</h3>
+          <ul class="pills">
+            <li>React.js</li>
+            <li>Next.js</li>
+          </ul>
+          <h3>AWS</h3>
+          <ul class="pills">
+            <li>Lambda</li>
+            <li>Batch</li>
+            <li>SQS</li>
+            <li>SNS</li>
+            <li>S3</li>
+            <li>EC2</li>
+            <li>DynamoDB</li>
+            <li>RDS</li>
+            <li>ECS</li>
+            <li>ECR</li>
+            <li>IAM</li>
+            <li>OpenSearch / Kibana</li>
+            <li>ElastiCache</li>
+          </ul>
+          <h3>Databases</h3>
+          <ul class="pills">
+            <li>Oracle</li>
+            <li>PostgreSQL</li>
+            <li>MySQL</li>
+            <li>MongoDB</li>
+            <li>Redis</li>
+            <li>SQLite</li>
+          </ul>
+          <h3>Tools and other</h3>
+          <ul class="pills">
+            <li>Maven</li>
+            <li>OpenRewrite</li>
+            <li>Git, GitHub, Bitbucket</li>
+            <li>REST APIs</li>
+            <li>XML / SOAP</li>
+            <li>JSON / REST</li>
+            <li>SFTP</li>
+            <li>Grafana</li>
+            <li>Splunk</li>
+            <li>Linux / Unix</li>
+            <li>Android (Java)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="wrap">
+        <h2 class="reveal" style="margin-bottom: 1.6rem">
+          Education and certification
+        </h2>
+        <!-- CONFIRM college name, dates and CGPA (CV says Punjabi University, old site says Mohindra College) -->
+        <article class="glass job tilt reveal" data-tilt>
+          <header>
+            <h3>MSc in Information Technology</h3>
+            <span class="when">Dec 2020 to Jul 2022</span>
+          </header>
+          <p class="where" style="margin: 0">
+            Mohindra College (Punjabi University), Patiala. CGPA 8.2/10.
+          </p>
+        </article>
+        <article class="glass job tilt reveal" data-tilt>
+          <header>
+            <h3>Bachelor of Computer Applications</h3>
+            <span class="when">Jul 2017 to Jul 2020</span>
+          </header>
+          <p class="where" style="margin: 0">
+            Mohindra College (Punjabi University), Patiala. CGPA 7.01/10.
+          </p>
+        </article>
+        <article class="glass job tilt reveal" data-tilt>
+          <header>
+            <h3>Spring with Spring Boot</h3>
+            <span class="when">Nov 2022</span>
+          </header>
+          <p class="where" style="margin: 0">
+            Udemy, taught by Telusko.
+            <a
+              href="https://www.udemy.com/certificate/UC-99dbf60e-4ada-41c3-b8ab-16fb1d2ae906/"
+              >View certificate</a
+            >
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div
+          class="glass tilt reveal"
+          data-tilt
+          style="padding: clamp(1.6rem, 5vw, 2.6rem)"
+        >
+          <h2>Contact</h2>
+          <p>
+            I'm open to backend and full-stack roles, and to relocation. Email
+            is the quickest way to reach me.
+          </p>
+          <div class="row">
+            <a class="btn fill" href="mailto:sachinsharmass790@gmail.com"
+              >sachinsharmass790@gmail.com</a
+            >
+            <a
+              class="btn"
+              href="tel:+919888260630"
+              aria-label="Call Sachin at +91 9888260630"
+              >+91 9888260630</a
+            >
+            <a
+              class="whatsapp-link"
+              href="https://wa.me/919888260630"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Message Sachin on WhatsApp"
+              title="WhatsApp"
+            >
+              <svg viewBox="0 0 32 32" role="img" aria-hidden="true">
+                <path
+                  d="M16.02 3.2A12.7 12.7 0 0 0 5.1 22.38L3.3 28.9l6.68-1.75A12.7 12.7 0 1 0 16.02 3.2Zm0 23.1c-1.94 0-3.85-.52-5.52-1.51l-.4-.24-3.96 1.04 1.06-3.86-.26-.42a10.4 10.4 0 1 1 9.08 4.99Zm5.72-7.79c-.31-.16-1.85-.91-2.14-1.02-.29-.1-.5-.16-.71.16-.21.31-.81 1.02-.99 1.23-.18.21-.36.24-.67.08-.31-.15-1.31-.48-2.49-1.53-.92-.82-1.54-1.84-1.72-2.15-.18-.31-.02-.48.14-.64.14-.14.31-.36.47-.54.16-.18.21-.31.31-.52.1-.21.05-.39-.03-.54-.08-.16-.71-1.71-.97-2.34-.25-.61-.51-.53-.71-.54l-.6-.01c-.21 0-.55.08-.84.39-.29.31-1.1 1.07-1.1 2.61s1.13 3.03 1.28 3.24c.16.21 2.22 3.39 5.38 4.75.75.32 1.33.51 1.79.65.75.24 1.43.21 1.97.13.6-.09 1.85-.76 2.11-1.49.26-.73.26-1.36.18-1.49-.08-.13-.29-.21-.6-.36Z"
+                />
+              </svg>
+              <span>WhatsApp</span>
+            </a>
+          </div>
+          <div class="row">
+            <a href="https://www.linkedin.com/in/sachin-sharma-cs/">LinkedIn</a>
+            <a href="https://github.com/semantic-void">GitHub</a>
+            <a href="https://medium.com/@sachinsharmass790">Medium</a>
+          </div>
+        </div>
+        <footer>Sachin Sharma, Pune, India.</footer>
+      </div>
+    </section>
+
+    <script>
+      (function () {
+        var rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var els = document.querySelectorAll(".reveal"),
+          hasIO = "IntersectionObserver" in window;
+        if (!hasIO) {
+          els.forEach(function (e) {
+            e.classList.add("in");
+          });
+        } else {
+          var io = new IntersectionObserver(
+            function (es) {
+              es.forEach(function (x) {
+                if (x.isIntersecting) {
+                  x.target.classList.add("in");
+                  io.unobserve(x.target);
+                }
+              });
+            },
+            { threshold: 0.12 },
+          );
+          els.forEach(function (e) {
+            io.observe(e);
+          });
+          var links = document.querySelectorAll(".dock a");
+          var so = new IntersectionObserver(
+            function (es) {
+              es.forEach(function (x) {
+                if (x.isIntersecting) {
+                  links.forEach(function (l) {
+                    l.setAttribute(
+                      "aria-current",
+                      l.getAttribute("href") === "#" + x.target.id,
+                    );
+                  });
+                }
+              });
+            },
+            { rootMargin: "-45% 0px -50% 0px" },
+          );
+          document.querySelectorAll("section[id]").forEach(function (s) {
+            so.observe(s);
+          });
+        }
+        if (!rm && window.matchMedia("(hover: hover)").matches) {
+          document.querySelectorAll("[data-tilt]").forEach(function (el) {
+            el.addEventListener("pointermove", function (e) {
+              var r = el.getBoundingClientRect(),
+                x = (e.clientX - r.left) / r.width - 0.5,
+                y = (e.clientY - r.top) / r.height - 0.5;
+              el.style.setProperty("--ry", (x * 5).toFixed(2) + "deg");
+              el.style.setProperty("--rx", (-y * 5).toFixed(2) + "deg");
+            });
+            el.addEventListener("pointerleave", function () {
+              el.style.setProperty("--rx", "0deg");
+              el.style.setProperty("--ry", "0deg");
+            });
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
