@@ -1,0 +1,1626 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Sachin Sharma, Backend Engineer (Java, Spring Boot, AWS)</title>
+    <meta
+      name="description"
+      content="Backend engineer with 4+ years in banking and travel systems. Case studies, projects and experience."
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:wght@500;600&family=Public+Sans:wght@400;500;600&display=swap"
+    />
+    <style>
+      :root {
+        --ink: #16202e;
+        --muted: #4d5a6d;
+        --accent: #2b4f8f;
+        --glass: rgba(255, 255, 255, 0.55);
+        --glass2: rgba(255, 255, 255, 0.4);
+        --edge: rgba(255, 255, 255, 0.75);
+        --shadow: rgba(30, 45, 75, 0.18);
+        --b1: #bfd0ee;
+        --b2: #d8dff0;
+        --b3: #c9e0e6;
+        --base: #e9edf4;
+        --serif: "Newsreader", Georgia, serif;
+        --sans:
+          "Public Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --ink: #eaf0fa;
+          --muted: #a3afc2;
+          --accent: #9fbdf0;
+          --glass: rgba(255, 255, 255, 0.09);
+          --glass2: rgba(255, 255, 255, 0.06);
+          --edge: rgba(255, 255, 255, 0.2);
+          --shadow: rgba(0, 0, 0, 0.45);
+          --b1: #2b4470;
+          --b2: #2c3350;
+          --b3: #1f4552;
+          --base: #0f141d;
+        }
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        font: 400 1rem/1.65 var(--sans);
+        background: var(--base);
+        -webkit-text-size-adjust: 100%;
+        padding-bottom: calc(6rem + env(safe-area-inset-bottom, 0px));
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background:
+          radial-gradient(40rem 32rem at 12% 8%, var(--b1), transparent 70%),
+          radial-gradient(38rem 30rem at 90% 30%, var(--b2), transparent 70%),
+          radial-gradient(42rem 34rem at 30% 95%, var(--b3), transparent 70%),
+          var(--base);
+      }
+      a {
+        color: var(--accent);
+        text-underline-offset: 3px;
+      }
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+        border-radius: 6px;
+      }
+      .wrap {
+        max-width: 62rem;
+        margin: 0 auto;
+        padding: 0 1.25rem;
+      }
+      section {
+        padding: 3rem 0;
+      }
+      .glass {
+        background: var(--glass2);
+        border: 1px solid var(--edge);
+        border-radius: 28px;
+        box-shadow:
+          0 24px 48px -20px var(--shadow),
+          inset 0 1px 0 var(--edge);
+      }
+      @supports (backdrop-filter: blur(1px)) or
+        (-webkit-backdrop-filter: blur(1px)) {
+        .glass,
+        .dock,
+        .chip {
+          background: var(--glass);
+          -webkit-backdrop-filter: blur(28px) saturate(170%);
+          backdrop-filter: blur(28px) saturate(170%);
+        }
+      }
+      .tilt {
+        transform: perspective(1000px) rotateX(var(--rx, 0deg))
+          rotateY(var(--ry, 0deg));
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+        will-change: transform;
+      }
+      .tilt:hover {
+        box-shadow:
+          0 36px 60px -22px var(--shadow),
+          inset 0 1px 0 var(--edge);
+      }
+      h1 {
+        font: 600 clamp(2.6rem, 8vw, 4.6rem)/1.03 var(--serif);
+        letter-spacing: -0.025em;
+        margin: 0 0 1rem;
+      }
+      h2 {
+        font: 600 1.8rem/1.2 var(--serif);
+        margin: 0 0 0.4rem;
+      }
+      h3 {
+        font: 600 1.1rem/1.4 var(--sans);
+        margin: 0;
+      }
+      p {
+        margin: 0 0 1rem;
+        max-width: 40rem;
+      }
+      .sub {
+        color: var(--muted);
+        margin-bottom: 1.8rem;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .lead {
+        font: 500 clamp(1.2rem, 3vw, 1.45rem)/1.45 var(--serif);
+        max-width: 36rem;
+      }
+      .hero {
+        padding-top: 4rem;
+      }
+      .hero .glass {
+        padding: clamp(1.6rem, 5vw, 3.2rem);
+        position: relative;
+      }
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--muted);
+        margin-bottom: 1.2rem;
+      }
+      .status::before {
+        content: "";
+        width: 0.55rem;
+        height: 0.55rem;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem 1.2rem;
+        align-items: center;
+        margin-top: 1.4rem;
+      }
+      .btn {
+        display: inline-block;
+        padding: 0.65rem 1.2rem;
+        border-radius: 999px;
+        border: 1px solid var(--edge);
+        text-decoration: none;
+        font-weight: 500;
+        color: var(--ink);
+        background: var(--glass2);
+      }
+      .btn.fill {
+        background: var(--accent);
+        color: #fff;
+        border-color: transparent;
+      }
+      .whatsapp-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        min-height: 2.8rem;
+        padding: 0.65rem 1.2rem;
+        border: 1px solid var(--edge);
+        border-radius: 999px;
+        background: var(--glass2);
+        color: var(--ink);
+        font-weight: 500;
+        text-decoration: none;
+        box-shadow: inset 0 1px 0 var(--edge);
+        transition: none;
+      }
+      .whatsapp-link svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        flex: none;
+        fill: currentColor;
+      }
+      .whatsapp-link:hover,
+      .whatsapp-link:focus-visible {
+        transform: none;
+        border-color: var(--edge);
+        background: var(--glass2);
+        color: var(--ink);
+      }
+      .social-row {
+        margin-top: 0.8rem;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+        margin-top: 2rem;
+      }
+      .chip {
+        padding: 0.7rem 1.1rem;
+        border-radius: 20px;
+        border: 1px solid var(--edge);
+        box-shadow: 0 14px 28px -14px var(--shadow);
+        animation: fl 6s ease-in-out infinite;
+      }
+      .chip:nth-child(2) {
+        animation-delay: -1.5s;
+      }
+      .chip:nth-child(3) {
+        animation-delay: -3s;
+      }
+      .chip:nth-child(4) {
+        animation-delay: -4.5s;
+      }
+      .chip b {
+        display: block;
+        font: 600 1.6rem/1.1 var(--serif);
+        color: var(--accent);
+      }
+      .chip span {
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+      @keyframes fl {
+        50% {
+          transform: translateY(-7px);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .chip {
+          animation: none;
+        }
+        .tilt {
+          transition: none;
+        }
+      }
+      .case {
+        padding: clamp(1.4rem, 4vw, 2.2rem);
+        margin-bottom: 1.8rem;
+        display: grid;
+        gap: 1.3rem;
+      }
+      .tag {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      ol.flow {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+        gap: 0.8rem;
+        counter-reset: s;
+      }
+      ol.flow li {
+        counter-increment: s;
+        background: var(--glass2);
+        border: 1px solid var(--edge);
+        border-radius: 18px;
+        padding: 0.8rem;
+        font-size: 0.9rem;
+        line-height: 1.45;
+        box-shadow: inset 0 1px 0 var(--edge);
+      }
+      ol.flow li:nth-child(even) {
+        transform: translateY(6px);
+      }
+      ol.flow li::before {
+        content: counter(s);
+        display: block;
+        font: 600 0.8rem var(--sans);
+        color: var(--accent);
+        margin-bottom: 0.2rem;
+      }
+      ol.flow b {
+        display: block;
+        margin-bottom: 0.15rem;
+      }
+      .cols {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+        gap: 1.4rem;
+      }
+      .cols h4 {
+        margin: 0 0 0.3rem;
+        font: 600 0.8rem var(--sans);
+        color: var(--muted);
+      }
+      .cols p {
+        margin: 0;
+        font-size: 0.97rem;
+      }
+      .bars {
+        display: grid;
+        gap: 0.9rem;
+      }
+      .bar {
+        display: grid;
+        grid-template-columns: 12rem 1fr 3.5rem;
+        gap: 0.8rem;
+        align-items: center;
+        font-size: 0.92rem;
+      }
+      .bar i {
+        display: block;
+        height: 0.75rem;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--accent), var(--b1));
+        width: var(--w);
+      }
+      .bar em {
+        font-style: normal;
+        font-weight: 600;
+        text-align: right;
+      }
+      @media (max-width: 36rem) {
+        .bar {
+          grid-template-columns: 1fr 3rem;
+        }
+        .bar i {
+          grid-column: 1/-1;
+          grid-row: 2;
+        }
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+        gap: 1.6rem;
+      }
+      .card {
+        padding: 1.1rem 1.1rem 1.4rem;
+      }
+      .thumb {
+        aspect-ratio: 16/9;
+        border-radius: 18px;
+        overflow: hidden;
+        margin-bottom: 0.9rem;
+        border: 1px solid var(--edge);
+        display: flex;
+        flex-direction: column;
+        background: var(--glass2);
+      }
+      .thumb .top {
+        display: flex;
+        gap: 0.3rem;
+        padding: 0.5rem;
+        border-bottom: 1px solid var(--edge);
+      }
+      .thumb s {
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: var(--edge);
+      }
+      .thumb .body {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .card p {
+        margin: 0.3rem 0 0.5rem;
+      }
+      .stack {
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+      .job {
+        padding: 1.3rem 1.5rem;
+        margin-bottom: 1.2rem;
+      }
+      .job header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.1rem 1rem;
+      }
+      .when {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .where {
+        color: var(--muted);
+        margin: 0 0 0.4rem;
+      }
+      .job ul {
+        margin: 0.3rem 0 0;
+        padding-left: 1.1rem;
+      }
+      .job li {
+        margin: 0 0 0.35rem;
+      }
+      .sk {
+        padding: 1.6rem;
+      }
+      .sk h3 {
+        font-size: 0.9rem;
+        color: var(--muted);
+        margin: 1rem 0 0.4rem;
+      }
+      .sk h3:first-child {
+        margin-top: 0;
+      }
+      .pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .pills li {
+        padding: 0.25rem 0.8rem;
+        border: 1px solid var(--edge);
+        border-radius: 999px;
+        background: var(--glass2);
+        font-size: 0.9rem;
+      }
+      .dock {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+        z-index: 20;
+        max-width: calc(100% - 1.5rem);
+        border: 1px solid var(--edge);
+        border-radius: 999px;
+        box-shadow:
+          0 20px 40px -12px var(--shadow),
+          inset 0 1px 0 var(--edge);
+        background: var(--glass);
+      }
+      .dock ul {
+        display: flex;
+        gap: 0.2rem;
+        margin: 0;
+        padding: 0.4rem;
+        list-style: none;
+        overflow-x: auto;
+      }
+      .dock a {
+        display: block;
+        padding: 0.5rem 0.9rem;
+        border-radius: 999px;
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.92rem;
+        white-space: nowrap;
+      }
+      .dock a:hover {
+        color: var(--ink);
+      }
+      .dock a[aria-current="true"] {
+        background: var(--accent);
+        color: #fff;
+      }
+      .js .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .js .reveal.in {
+        opacity: 1;
+        transform: none;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .js .reveal {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
+      footer {
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.9rem;
+        padding-top: 1rem;
+      }
+    
+/* ---- interactive layer ---- */
+.glass{position:relative;isolation:isolate}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;opacity:0;transition:opacity .3s;background:radial-gradient(22rem circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--accent) 16%,transparent),transparent 60%)}
+.glass:hover::before{opacity:1}
+.prog{position:fixed;top:0;left:0;width:100%;height:3px;background:var(--accent);transform-origin:left;transform:scaleX(var(--p,0));z-index:40}
+.toast{position:fixed;left:50%;bottom:calc(5.6rem + env(safe-area-inset-bottom,0px));transform:translate(-50%,12px);opacity:0;pointer-events:none;z-index:30;display:flex;gap:.8rem;align-items:center;padding:.6rem 1rem;border-radius:999px;border:1px solid var(--edge);background:var(--glass);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);box-shadow:0 16px 32px -12px var(--shadow);font-size:.9rem;max-width:calc(100% - 1.5rem);transition:opacity .25s,transform .25s}
+.toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.toast button{font:inherit;cursor:pointer;border:0;background:none;color:var(--accent);font-weight:600;padding:0}
+.pills li{cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+.pills li:hover{border-color:var(--accent);transform:translateY(-2px)}
+.pills li.sel{background:var(--accent);color:#fff;border-color:transparent}
+.dim,.js .reveal.in.dim{opacity:.3}
+.hit{outline:2px solid var(--accent);outline-offset:4px}
+article{transition:opacity .3s}
+.sim{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center}
+.sim .seg{display:flex;flex-wrap:wrap;gap:.35rem}
+.sim button{font:inherit;cursor:pointer;padding:.45rem .95rem;border-radius:999px;border:1px solid var(--edge);background:var(--glass2);color:var(--ink)}
+.sim button[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:transparent}
+.sim .go{background:var(--accent);color:#fff;border-color:transparent;font-weight:600}
+.sim .go:disabled{opacity:.6;cursor:default}
+.sim-note{font-size:.88rem;color:var(--muted);margin:0}
+ol.flow li{transition:background .3s,border-color .3s,opacity .3s,transform .3s}
+ol.flow.armed li{opacity:.4}
+ol.flow.armed li.on{opacity:1;background:var(--glass);border-color:var(--accent);transform:translateY(-4px)}
+
+/* ---- invitations ---- */
+.explore{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-top:1.6rem}
+.explore>span{color:var(--muted);font-size:.9rem}
+.explore button,.tryb{font:inherit;font-size:.92rem;cursor:pointer;padding:.4rem .9rem;border-radius:999px;border:1px dashed var(--accent);background:transparent;color:var(--accent);font-weight:500;transition:background .2s}
+.explore button:hover,.tryb:hover{background:color-mix(in srgb,var(--accent) 14%,transparent)}
+.tryb{margin-left:.3rem;padding:.15rem .7rem;font-size:.85rem}
+.badge{display:inline-block;margin-left:.6rem;padding:.1rem .6rem;border-radius:999px;font:600 .7rem var(--sans);color:var(--accent);border:1px solid var(--accent);vertical-align:middle;letter-spacing:.02em}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 45%,transparent)}100%{box-shadow:0 0 0 .9rem transparent}}
+.sim .go:not(.used):not(:disabled){animation:pulse 1.8s infinite}
+.fab{position:fixed;top:calc(.9rem + env(safe-area-inset-top,0px));right:.9rem;z-index:35;display:flex;align-items:center;gap:.5rem;font:inherit;font-weight:500;cursor:pointer;padding:.55rem 1rem;border-radius:999px;border:1px solid var(--edge);background:var(--glass);color:var(--ink);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:0 14px 28px -12px var(--shadow)}
+.fab::before{content:"";width:.55rem;height:.55rem;border-radius:50%;background:var(--accent);animation:pulse 1.8s infinite}
+dialog{margin:auto;border:1px solid var(--edge);border-radius:28px;padding:1.5rem;width:calc(100% - 2rem);max-width:36rem;color:var(--ink);background:color-mix(in srgb,var(--base) 93%,transparent);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);box-shadow:0 40px 80px -20px var(--shadow)}
+dialog::backdrop{background:rgba(10,15,25,.5);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.qa-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem}
+.qa-head h2{margin:0}
+.qa-head button{font:inherit;font-size:1.5rem;line-height:1;cursor:pointer;border:0;background:none;color:var(--muted)}
+.qchips{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1rem}
+.qchips button{font:inherit;font-size:.9rem;cursor:pointer;padding:.35rem .85rem;border-radius:999px;border:1px solid var(--edge);background:var(--glass2);color:var(--ink)}
+.qchips button[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:transparent}
+.answer{min-height:7rem;padding:1rem 1.1rem;border-radius:18px;border:1px solid var(--edge);background:var(--glass2);margin-bottom:1rem}
+.answer p{margin:0;max-width:none}
+@media (prefers-reduced-motion:reduce){.fab::before,.sim .go:not(.used):not(:disabled){animation:none}}
+
+/* ---- plain english + system explorer ---- */
+.mode{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:-.6rem 0 1.6rem}
+.mode>span{color:var(--muted);font-size:.9rem}
+.mode button,.nodes button{font:inherit;font-size:.9rem;cursor:pointer;padding:.35rem .9rem;border-radius:999px;border:1px solid var(--edge);background:var(--glass2);color:var(--ink);transition:background .2s}
+.mode button[aria-pressed="true"],.nodes button[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:transparent}
+.nodes button:hover{border-color:var(--accent)}
+.nodes{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center}
+.node-detail{min-height:2.8rem}
+.bar.flag{background:color-mix(in srgb,var(--accent) 14%,transparent);border-radius:10px;padding:.3rem .5rem;margin:-.3rem -.5rem}
+#work .plain-text{display:none;margin:0;font-size:1.05rem;max-width:44rem}
+#work.plain .plain-text{display:block}
+#work.plain .cols,#work.plain ol.flow,#work.plain .sim,#work.plain #simout,#work.plain .nodes,#work.plain .node-detail{display:none}
+
+/* ---- persistent skill filter bar ---- */
+.fbar{position:fixed;left:50%;bottom:calc(5.4rem + env(safe-area-inset-bottom,0px));transform:translate(-50%,12px);opacity:0;pointer-events:none;z-index:31;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.5rem .6rem;padding:.5rem .6rem .5rem 1rem;border-radius:24px;border:1px solid var(--edge);background:var(--glass);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);box-shadow:0 16px 32px -12px var(--shadow);max-width:calc(100% - 1.5rem);transition:opacity .25s,transform .25s}
+.fbar.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.fbar b{color:var(--accent)}
+.fbar button{font:inherit;font-size:.9rem;cursor:pointer;border-radius:999px;border:1px solid var(--edge);background:var(--glass2);color:var(--ink);padding:.3rem .75rem}
+.fbar .clr{background:var(--accent);color:#fff;border-color:transparent;font-weight:600}
+body.filtering .toast{bottom:calc(10rem + env(safe-area-inset-bottom,0px))}
+
+/* ---- opening animation: the oracle orb ---- */
+.intro{display:none;position:fixed;inset:0;z-index:100;background:radial-gradient(circle at 50% 50%,#142040 0%,#0a0f1e 55%,#04060d 100%);color:#eaf2ff;transition:transform .9s cubic-bezier(.7,0,.2,1)}
+.intro-on .intro{display:block}
+.intro.done{transform:translateY(-100%)}
+.intro-on body{overflow:hidden}
+.halo{position:absolute;left:50%;top:50%;width:calc(min(100vw,100vh)*1);height:calc(min(100vw,100vh)*1);transform:translate(-50%,-50%) scale(.6);border-radius:50%;background:radial-gradient(circle,rgba(190,215,255,.65) 0%,rgba(120,165,255,.22) 32%,transparent 66%);opacity:0;transition:opacity 1.2s ease,transform 1.6s ease;pointer-events:none}
+.intro.formed .halo{opacity:1;transform:translate(-50%,-50%) scale(1);animation:breathe 3.2s ease-in-out 1.6s infinite}
+.intro.speaking .halo{animation:talk 1s ease-in-out infinite}
+@keyframes breathe{50%{transform:translate(-50%,-50%) scale(1.08);opacity:.8}}
+@keyframes talk{50%{transform:translate(-50%,-50%) scale(1.2);opacity:1}}
+.intro svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.ln,.hd{fill:none;stroke-linecap:round;transition:stroke-dashoffset 2.3s cubic-bezier(.55,0,.25,1)}
+.ln{stroke:#e3eeff;stroke-width:3.5;stroke-dasharray:1 1;stroke-dashoffset:1;filter:drop-shadow(0 0 5px #a9c8ff) drop-shadow(0 0 16px #6f9cff)}
+.hd{stroke:#fff;stroke-width:8;stroke-dasharray:.035 1;stroke-dashoffset:0;filter:drop-shadow(0 0 8px #fff) drop-shadow(0 0 24px #8db4ff)}
+.intro.draw .ln{stroke-dashoffset:0}
+.intro.draw .hd{stroke-dashoffset:-1}
+.core{opacity:0;transition:opacity 1.2s ease}
+.intro.formed .core{opacity:1}
+.orb{position:absolute;left:50%;top:50%;width:calc(min(100vw,100vh)*.46);height:calc(min(100vw,100vh)*.46);transform:translate(-50%,-50%);border-radius:50%;border:0;background:transparent;cursor:pointer}
+.orb:focus-visible{outline:2px solid #bcd3ff;outline-offset:6px}
+.cap{position:absolute;left:0;right:0;top:calc(50% + min(100vw,100vh)*.27);text-align:center;padding:0 1.5rem}
+.cap p{margin:0 auto .3rem;max-width:none;font:500 clamp(1.3rem,4.6vw,2rem)/1.3 var(--serif);color:#eaf2ff;opacity:0;transform:translateY(8px);transition:opacity .9s,transform .9s;text-shadow:0 0 18px rgba(150,190,255,.6)}
+.cap p.in{opacity:1;transform:none}
+.hint{position:absolute;left:0;right:0;bottom:calc(2rem + env(safe-area-inset-bottom,0px));text-align:center;margin:0 auto;max-width:none;font-size:.9rem;color:#a9bddf;opacity:0;transition:opacity .8s}
+.hint.in{opacity:1}
+.intro-skip{position:absolute;right:1.2rem;top:calc(1rem + env(safe-area-inset-top,0px));font:inherit;font-size:.9rem;cursor:pointer;padding:.4rem .9rem;border-radius:999px;border:1px solid rgba(200,220,255,.35);background:rgba(255,255,255,.06);color:#dbe8ff}
+html.intro-on .hero .glass>*{opacity:0;transform:translateY(14px)}
+html.intro-on body.hero-in .hero .glass>*{opacity:1;transform:none;transition:opacity .7s ease,transform .7s ease;transition-delay:calc(var(--i,0)*90ms)}
+@media (prefers-reduced-motion:reduce){.intro{display:none!important}}
+.since{color:var(--muted);font-size:.9rem;margin:-.4rem 0 1.2rem}
+.since b{color:var(--accent);font-variant-numeric:tabular-nums}
+#jd textarea{width:100%;min-height:8rem;padding:.8rem;border-radius:14px;border:1px solid var(--edge);background:var(--glass2);color:var(--ink);font:inherit;font-size:.95rem;resize:vertical;margin-bottom:.8rem}
+#jd .row{margin-top:0;margin-bottom:1rem}
+#jd .answer{min-height:0}
+.jdchips{display:flex;flex-wrap:wrap;gap:.4rem;margin:.5rem 0 1rem}
+.jdchips button,.jdchips span{font:inherit;font-size:.88rem;padding:.25rem .75rem;border-radius:999px;border:1px solid var(--edge);background:var(--glass2);color:var(--ink)}
+.jdchips button{cursor:pointer;border-color:var(--accent);color:var(--accent)}
+.jdchips span{color:var(--muted)}
+.jdnote{font-size:.85rem;color:var(--muted);margin:0}
+
+.debug .pills li.untagged{outline:2px dashed #d33;outline-offset:2px}
+.debug .pills li.untagged::after{content:" ?";color:#d33}
+
+/* ---- AI advocate chat ---- */
+.chatlog{max-height:45vh;overflow:auto;display:flex;flex-direction:column;gap:.6rem;margin:.8rem 0;padding:.2rem}
+.msg{max-width:88%;padding:.6rem .9rem;border-radius:16px;border:1px solid var(--edge);background:var(--glass2);font-size:.95rem;line-height:1.55;white-space:pre-wrap}
+.msg.me{align-self:flex-end;background:var(--accent);color:#fff;border-color:transparent}
+.msg.ai{align-self:flex-start}
+.msg.typing{color:var(--muted)}
+.chatrow{display:flex;gap:.5rem;margin-top:.6rem}
+.chatrow input{flex:1;min-width:0;font:inherit;padding:.6rem .9rem;border-radius:999px;border:1px solid var(--edge);background:var(--glass2);color:var(--ink)}
+.chatrow button{font:inherit;cursor:pointer}
+.chatrow button:disabled{opacity:.6;cursor:default}
+.chatnote{font-size:.85rem;color:var(--muted);margin:0 0 .4rem}
+</style>
+    <script>
+      document.documentElement.className = "js";
+    </script>
+  <script>(function(){try{var rm=matchMedia("(prefers-reduced-motion: reduce)").matches;if(!rm&&sessionStorage.getItem("introSeen")!=="1")document.documentElement.classList.add("intro-on")}catch(e){}})();</script>
+</head>
+  <body>
+<div class="intro" id="intro" aria-label="Welcome animation">
+<div class="halo" aria-hidden="true"></div>
+<svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+<defs><radialGradient id="og" cx="50%" cy="42%" r="60%"><stop offset="0%" stop-color="#dcebff" stop-opacity=".42"/><stop offset="55%" stop-color="#7ea6ff" stop-opacity=".14"/><stop offset="100%" stop-color="#7ea6ff" stop-opacity=".03"/></radialGradient></defs>
+<circle class="core" cx="500" cy="500" r="220" fill="url(#og)"/>
+<path class="ln" pathLength="1" d="M -122 -433 C 200 -100, 450 150, 655.6 344.4 A 220 220 0 0 1 344.4 655.6"/>
+<path class="hd" pathLength="1" d="M -122 -433 C 200 -100, 450 150, 655.6 344.4 A 220 220 0 0 1 344.4 655.6"/>
+<path class="ln" pathLength="1" d="M 1122 1433 C 800 1100, 550 850, 344.4 655.6 A 220 220 0 0 1 655.6 344.4"/>
+<path class="hd" pathLength="1" d="M 1122 1433 C 800 1100, 550 850, 344.4 655.6 A 220 220 0 0 1 655.6 344.4"/>
+</svg>
+<button type="button" class="orb" id="orb" aria-label="Play the welcome message"></button>
+<div class="cap"><p>Welcome to my portfolio.</p><p>Your search will end here.</p></div>
+<p class="hint" id="hint">Tap anywhere to hear it</p>
+<button type="button" class="intro-skip" id="introskip">Skip</button>
+</div>
+<div class="prog" aria-hidden="true"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <nav class="dock" aria-label="Sections">
+      <ul>
+        <li><a href="#top">Home</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <section class="hero" id="top">
+      <div class="wrap">
+        <div class="glass tilt" data-tilt>
+          <div class="status">Pune, India. Open to relocation.</div>
+          <div class="since">Shipping backend code since Jul 2022: <b id="days">0</b> days</div>
+<h1>Backend systems for banks, airlines and versioning.</h1>
+          <p class="lead">
+            I'm Sachin Sharma, a backend engineer with full-stack experience in
+            React and Node.js. I build Java, Spring Boot and AWS systems, and I
+            like the integration problems in the middle.
+          </p>
+          <div class="row">
+            <a class="btn fill" href="#work">See my work</a>
+            <a class="btn" href="SachinSharmaResume.pdf">Resume (PDF)</a>
+            <a href="https://github.com/semantic-void">GitHub</a>
+            <a href="https://www.linkedin.com/in/sachin-sharma-cs/">LinkedIn</a>
+          </div>
+          <div class="explore"><span>Try it:</span>
+<button type="button" data-act="sim">Run the email routing demo</button>
+<button type="button" data-act="skill">Click a skill, see where I used it</button>
+<button type="button" data-act="plain">Plain-English mode</button>
+<button type="button" data-act="chat">Talk to my AI advocate</button>
+<button type="button" data-act="jd">Match a job description</button>
+<button type="button" data-act="qa">Ask me anything</button></div>
+<div class="chips">
+            <div class="chip"><b>4+</b><span>years in backend</span></div>
+            <div class="chip">
+              <b>3</b><span>domains: banking, travel, version management</span>
+            </div>
+            <div class="chip"><b>10%</b><span>more bookings</span></div>
+            <div class="chip"><b>20%</b><span>lower logging cost</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="wrap">
+        <h2 class="reveal">Selected work</h2>
+        <p class="sub reveal">
+          Four systems I worked on, what I built, and what changed.
+        </p>
+<div class="mode" role="group" aria-label="Explanation level"><span>Explain it in:</span>
+<button type="button" aria-pressed="true" data-mode="tech">Technical terms</button>
+<button type="button" aria-pressed="false" data-mode="plain">Plain English</button></div>
+
+        <!-- CHECK with your employer that this level of detail is OK to share publicly -->
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+<article data-skills="Java, Spring Boot, React.js, AWS, Event-driven, REST APIs" class="glass case tilt reveal" data-tilt>
+          <div>
+            <h3>Enterprise version management platform</h3>
+            <div class="tag">
+              AlgoDomain Solutions. Java, Spring Boot, React.js, AWS,
+              event-driven architecture.
+            </div>
+          </div>
+<p class="plain-text">Software that keeps a full history of every change to official documents and code, a bit like a careful record book. I built core parts of it.</p>
+          <div class="cols">
+            <div>
+              <h4>What it is</h4>
+              <p>
+                A platform like GitHub for versioning official documents and
+                code, built as an event-driven system.
+              </p>
+            </div>
+            <div>
+              <h4>What I built</h4>
+              <p>
+                Core components and key modules, working as a Java developer
+                across the whole development lifecycle.
+              </p>
+            </div>
+            <div>
+              <h4>Also</h4>
+              <p>
+                Built a related version migration tool, described below, for
+                upgrading banking projects.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+<article data-skills="Java, Spring Boot, XML, SFTP" class="glass case tilt reveal" data-tilt>
+          <div>
+            <h3>Custom email maintenance system <span class="badge">Interactive</span></h3>
+            <div class="tag">
+              Intellect Design Arena, CSOP platform, client bank. Java, Spring
+              Boot, queues, SFTP.
+            </div>
+          </div>
+<p class="plain-text">When something changes at a bank, the right person must get the right email. I built the part that works out who that is, across more than 12 situations, and tells the sending system what to send.</p>
+          <ol class="flow" id="mailflow">
+            <li><b>Email arrives</b>As an XML file and an HTML file.</li>
+            <li><b>Split</b>HTML is shown in the UI. XML goes to a queue.</li>
+            <li>
+              <b>Transfer</b>Server-to-server SFTP sends an encoded string of
+              maintenance values to CS.
+            </li>
+            <li>
+              <b>Route</b>Checks if the alert is for a bank, anchor, RM or
+              counterparty: 12+ cases.
+            </li>
+            <li>
+              <b>Trigger</b>CS is told which custom email to send, with all the
+              data it needs.
+            </li>
+          </ol>
+<div class="sim" id="sim">
+  <span class="sim-note"><b>Try it:</b> who is the alert for?</span>
+  <div class="seg" role="group" aria-label="Recipient type">
+    <button type="button" aria-pressed="true" data-rec="Bank">Bank</button>
+    <button type="button" aria-pressed="false" data-rec="Anchor">Anchor</button>
+    <button type="button" aria-pressed="false" data-rec="RM">RM</button>
+    <button type="button" aria-pressed="false" data-rec="Counterparty">Counterparty</button>
+  </div>
+  <button type="button" class="go" id="simgo">Send test alert</button>
+</div>
+<p class="sim-note" id="simout" aria-live="polite">Pick a recipient and press the button. This is an illustration with sample data: the real system handles 12+ cases.</p>
+          <div class="cols">
+            <div>
+              <h4>Problem</h4>
+              <p>
+                Maintenance emails had to reach the right people with the right
+                template, and the data had to move between two internal systems
+                reliably.
+              </p>
+            </div>
+            <div>
+              <h4>What I built</h4>
+              <p>
+                The intake, the queue and SFTP hand-off to CS, and the routing
+                logic that picks the custom email.
+              </p>
+            </div>
+            <div>
+              <h4>Result</h4>
+              <p>[Add one measurable outcome, or delete this box.]</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+<article data-skills="Java, Spring Boot, Node.js, TypeScript, AWS, Lambda, Batch, OpenSearch, Kibana, Redis, ElastiCache, PostgreSQL, Grafana" class="glass case tilt reveal" data-tilt>
+          <div>
+            <h3>Airline reservation and booking system <span class="badge">Interactive</span></h3>
+            <div class="tag">
+              AlgoDomain Solutions. Java, Spring Boot, Node.js, TypeScript, AWS,
+              OpenSearch, Redis, Grafana.
+            </div>
+          </div>
+<p class="plain-text">For an airline booking system, I helped bookings grow by 10% by adding new airlines and return flights, and cut cloud costs by 20% by clearing out unnecessary stored data.</p>
+          <div class="bars">
+            <div class="bar">
+              <span>Bookings, new airlines and round-trip</span
+              ><i style="--w: 10%"></i><em>+10%</em>
+            </div>
+            <div class="bar">
+              <span>Redundant flight logs removed</span><i style="--w: 80%"></i
+              ><em>-80%</em>
+            </div>
+            <div class="bar">
+              <span>Logging cost</span><i style="--w: 20%"></i><em>-20%</em>
+            </div>
+          </div>
+          <div class="nodes" id="nodes" role="group" aria-label="System components"><span class="sim-note"><b>Explore:</b> click a part of the system.</span>
+<button type="button" aria-pressed="false" data-n="0">New airlines + round-trip</button>
+<button type="button" aria-pressed="false" data-n="1">Booking Lambdas</button>
+<button type="button" aria-pressed="false" data-n="2">Redis cache</button>
+<button type="button" aria-pressed="false" data-n="3">OpenSearch logs</button>
+<button type="button" aria-pressed="false" data-n="4">ETL to PostgreSQL</button></div>
+<p class="sim-note node-detail" id="nodedetail" aria-live="polite">Each part links to what I did and, where there is one, the result above.</p>
+<div class="cols">
+            <div>
+              <h4>Booking flow</h4>
+              <p>
+                Java and TypeScript Lambdas covering flight search through to
+                reservation, and upgrades that kept the international booking
+                system competitive.
+              </p>
+            </div>
+            <div>
+              <h4>Data</h4>
+              <p>
+                A Spring Boot Lambda and Batch ETL pipeline moving data from
+                OpenSearch to PostgreSQL for analysis.
+              </p>
+            </div>
+            <div>
+              <h4>Caching</h4>
+              <p>
+                Reverse-engineered and optimised the Redis caching architecture,
+                then reported findings to senior management with charts.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+<article data-skills="Java, Spring Boot, Maven, OpenRewrite, TypeScript, Next.js, Git" class="glass case tilt reveal" data-tilt>
+          <div>
+            <h3>Version migration tool for banks</h3>
+            <div class="tag">
+              AlgoDomain Solutions. Spring Boot, Maven, OpenRewrite, TypeScript,
+              Next.js, Next UI.
+            </div>
+          </div>
+<p class="plain-text">A tool that upgrades older software projects for banks automatically, so people no longer have to do it by hand.</p>
+          <ol class="flow">
+            <li><b>Pick a project</b>Front end or back end.</li>
+            <li>
+              <b>Update dependencies</b>Automated with OpenRewrite and Maven.
+            </li>
+            <li>
+              <b>Git operations</b>Changes applied and tracked automatically.
+            </li>
+          </ol>
+          <p class="muted" style="margin: 0">
+            Replaced a manual, repetitive upgrade process with one tool that
+            moves dependencies and code for both front-end and back-end
+            projects.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="wrap">
+        <h2 class="reveal">Personal projects</h2>
+        <p class="sub reveal">
+          Side projects where I tried things out end to end.
+        </p>
+        <div class="grid">
+          <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+<article data-skills="Java, Servlet, JSP, SQLite, JavaScript, jQuery, Ajax, Bootstrap, HTML5, CSS3" class="glass card tilt reveal" data-tilt>
+            <div class="thumb">
+              <div class="top"><s></s><s></s><s></s></div>
+              <img src="techBlog.webp" alt="Tech Blog project screenshot" />
+            </div>
+            <h3>Tech Blog</h3>
+            <p>
+              A Q&amp;A platform where programmers share information and like
+              posts, with sign-up, login and profile management.
+            </p>
+            <div class="stack">
+              Java, JSP, Servlets, SQLite, Ajax, jQuery, Bootstrap, Tomcat
+            </div>
+            <div class="row">
+              <a
+                href="https://github.com/semantic-void/Projects/tree/master/TechBlog"
+                >GitHub</a
+              >
+            </div>
+          </article>
+          <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+<article data-skills="Node.js, Express.js, MongoDB, JavaScript, Passport.js, Handlebars" class="glass card tilt reveal" data-tilt>
+            <div class="thumb">
+              <div class="top"><s></s><s></s><s></s></div>
+              <img
+                src="storyBooks.webp"
+                alt="StoryBooks project screenshot"
+              />
+            </div>
+            <h3>StoryBooks</h3>
+            <p>
+              Create, edit and delete public or private stories, browse other
+              people's public stories, and sign in with Google.
+            </p>
+            <div class="stack">
+              Node.js, Express, Handlebars, Passport.js, Google Auth, MongoDB
+              Atlas
+            </div>
+            <div class="row">
+              <a href="https://storybooks-5spl.onrender.com">Live site</a
+              ><a href="https://github.com/semantic-void/MyStoryBooks"
+                >GitHub</a
+              >
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="wrap">
+        <h2 class="reveal" style="margin-bottom: 1.6rem">Experience</h2>
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+<article data-skills="Java, Spring Boot, XML, SFTP, Monolithic" class="glass job tilt reveal" data-tilt>
+          <header>
+            <h3>Software Engineer, Intellect Design Arena</h3>
+            <span class="when">Nov 2025 to present</span>
+          </header>
+          <p class="where">Pune. Wholesale banking, CSOP platform.</p>
+          <ul>
+            <li>
+              Designed and built the custom email maintenance system for a
+              client bank, from XML and HTML intake to SFTP transfer and routing
+              across 12+ cases.
+            </li>
+            <li>
+              Work across CSOP's monolithic modules and the modules built on internal frameworks, delivering new features (including advanced ones on top of standard modules) for the client bank in Java and Spring Boot.
+            </li>
+          </ul>
+        </article>
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+<article data-skills="Java, Spring Boot, Node.js, TypeScript, React.js, Next.js, AWS, Lambda, Batch, OpenSearch, Redis, PostgreSQL, Grafana, Maven, OpenRewrite, Git, Event-driven, REST APIs" class="glass job tilt reveal" data-tilt>
+          <header>
+            <h3>Senior Software Engineer, AlgoDomain Solutions</h3>
+            <span class="when">Jul 2022 to Jul 2025</span>
+          </header>
+          <p class="where">Pune. Banking, travel and version management tools.</p>
+          <ul>
+            <li>
+              Built core components of an enterprise version management platform
+              (like GitHub, for complex official documents and code) using
+              event-driven architecture.
+            </li>
+            <li>
+              Developed and optimised an airline reservation system; raised
+              bookings by 10% and cut logging costs by 20%.
+            </li>
+            <li>
+              Built a version migration tool for the banking sector with
+              automated dependency updates and Git operations.
+            </li>
+            <li>Coordinated a team on delivery, punctuality and quality.</li>
+            <li>
+              Investigated unusual claims, cases and incidents, and fixed the
+              issues found on our side.
+            </li>
+          </ul>
+        </article>
+        <!-- CONFIRM THESE DATES: this entry overlaps with AlgoDomain in your old CV. Fix or delete before publishing. -->
+        <!-- CONFIRM these dates (your old site says Nov 2021 to Mar 2022, an older CV said Aug to Sep 2022) -->
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+<article data-skills="Java, JSP, Servlet, jQuery, Ajax, Bootstrap, HTML5, CSS3, JavaScript" class="glass job tilt reveal" data-tilt>
+          <header>
+            <h3>Freelance Web Developer</h3>
+            <span class="when">Nov 2021 to Mar 2022</span>
+          </header>
+          <p class="where">
+            B2B e-commerce site for an iron and steel startup.
+          </p>
+          <ul>
+            <li>
+              Java 17, JSP and Servlets backend with a mobile-friendly front end
+              in jQuery, Ajax, Bootstrap, HTML5 and CSS3.
+            </li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="wrap">
+        <h2 class="reveal" style="margin-bottom: 1.6rem">Skills <span class="badge">Interactive</span></h2><p class="muted" style="margin:-1rem 0 1.2rem;font-size:.92rem">Tip: click any skill to see where I have used it. Try: <button type="button" class="tryb" data-try="Redis">Redis</button><button type="button" class="tryb" data-try="React.js">React.js</button><button type="button" class="tryb" data-try="OpenRewrite">OpenRewrite</button></p>
+        <div class="glass sk reveal">
+          <h3>Languages</h3>
+          <ul class="pills">
+            <li>Java</li>
+            <li>TypeScript</li>
+            <li>JavaScript</li>
+            <li>SQL</li>
+            <li>PL/SQL</li>
+          </ul>
+          <h3>Backend frameworks</h3>
+          <ul class="pills">
+            <li>Spring Boot</li>
+            <li>Servlet / JSP</li>
+            <li>Node.js</li>
+            <li>Express.js</li>
+          </ul>
+          <h3>Front end</h3>
+          <ul class="pills">
+            <li>React.js</li>
+            <li>Next.js</li>
+          </ul>
+          <h3>AWS</h3>
+          <ul class="pills">
+            <li>Lambda</li>
+            <li>Batch</li>
+            <li>SQS</li>
+            <li>SNS</li>
+            <li>S3</li>
+            <li>EC2</li>
+            <li>DynamoDB</li>
+            <li>RDS</li>
+            <li>ECS</li>
+            <li>ECR</li>
+            <li>IAM</li>
+            <li>OpenSearch / Kibana</li>
+            <li>ElastiCache</li>
+          </ul>
+          <h3>Databases</h3>
+          <ul class="pills">
+            <li>Oracle</li>
+            <li>PostgreSQL</li>
+            <li>MySQL</li>
+            <li>MongoDB</li>
+            <li>Redis</li>
+            <li>SQLite</li>
+          </ul>
+          <h3>Architecture</h3>
+<ul class="pills"><li>Microservices</li><li>Monolithic</li><li>REST APIs</li><li>Event-driven</li></ul>
+<h3>Tools and other</h3>
+          <ul class="pills">
+            <li>Maven</li>
+            <li>OpenRewrite</li>
+            <li>Git, GitHub, Bitbucket</li>
+            <li>REST APIs</li>
+            <li>XML / SOAP</li>
+            <li>JSON / REST</li>
+            <li>SFTP</li>
+            <li>Grafana</li>
+            <li>Splunk</li>
+            <li>Linux / Unix</li>
+            <li>Android (Java)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="wrap">
+        <h2 class="reveal" style="margin-bottom: 1.6rem">
+          Education and certification
+        </h2>
+        <!-- CONFIRM college name, dates and CGPA (CV says Punjabi University, old site says Mohindra College) -->
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+<article data-skills="" class="glass job tilt reveal" data-tilt>
+          <header>
+            <h3>MSc in Information Technology</h3>
+            <span class="when">Dec 2020 to Jul 2022</span>
+          </header>
+          <p class="where" style="margin: 0">
+            Mohindra College (Punjabi University), Patiala. CGPA 8.2/10.
+          </p>
+        </article>
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+<article data-skills="" class="glass job tilt reveal" data-tilt>
+          <header>
+            <h3>Bachelor of Computer Applications</h3>
+            <span class="when">Jul 2017 to Jul 2020</span>
+          </header>
+          <p class="where" style="margin: 0">
+            Mohindra College (Punjabi University), Patiala. CGPA 7.01/10.
+          </p>
+        </article>
+        <!-- SKILLS USED HERE: edit the data-skills list below. Names must match the skill pills (case does not matter). Add a name to mark this place when that skill is clicked. -->
+<article data-skills="Java, Spring Boot" class="glass job tilt reveal" data-tilt>
+          <header>
+            <h3>Spring with Spring Boot</h3>
+            <span class="when">Nov 2022</span>
+          </header>
+          <p class="where" style="margin: 0">
+            Udemy, taught by Telusko.
+            <a
+              href="https://www.udemy.com/certificate/UC-99dbf60e-4ada-41c3-b8ab-16fb1d2ae906/"
+              >View certificate</a
+            >
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div
+          class="glass tilt reveal"
+          data-tilt
+          style="padding: clamp(1.6rem, 5vw, 2.6rem)"
+        >
+          <h2>Contact</h2>
+          <p>
+            I'm open to backend and full-stack roles, and to relocation. Email
+            is the quickest way to reach me.
+          </p>
+          <div class="row">
+            <a class="btn fill" href="mailto:sachinsharmass790@gmail.com"
+              >sachinsharmass790@gmail.com</a
+            > <button type="button" class="btn" data-copy="sachinsharmass790@gmail.com" style="font:inherit;cursor:pointer">Copy email</button>
+            <a
+              class="btn"
+              href="tel:+919888260630"
+              aria-label="Call Sachin at +91 9888260630"
+              >+91 9888260630</a
+            >
+            <a
+              class="whatsapp-link"
+              href="https://wa.me/919888260630"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Message Sachin on WhatsApp"
+              title="WhatsApp"
+            >
+              <svg viewBox="0 0 32 32" role="img" aria-hidden="true">
+                <path
+                  d="M16.02 3.2A12.7 12.7 0 0 0 5.1 22.38L3.3 28.9l6.68-1.75A12.7 12.7 0 1 0 16.02 3.2Zm0 23.1c-1.94 0-3.85-.52-5.52-1.51l-.4-.24-3.96 1.04 1.06-3.86-.26-.42a10.4 10.4 0 1 1 9.08 4.99Zm5.72-7.79c-.31-.16-1.85-.91-2.14-1.02-.29-.1-.5-.16-.71.16-.21.31-.81 1.02-.99 1.23-.18.21-.36.24-.67.08-.31-.15-1.31-.48-2.49-1.53-.92-.82-1.54-1.84-1.72-2.15-.18-.31-.02-.48.14-.64.14-.14.31-.36.47-.54.16-.18.21-.31.31-.52.1-.21.05-.39-.03-.54-.08-.16-.71-1.71-.97-2.34-.25-.61-.51-.53-.71-.54l-.6-.01c-.21 0-.55.08-.84.39-.29.31-1.1 1.07-1.1 2.61s1.13 3.03 1.28 3.24c.16.21 2.22 3.39 5.38 4.75.75.32 1.33.51 1.79.65.75.24 1.43.21 1.97.13.6-.09 1.85-.76 2.11-1.49.26-.73.26-1.36.18-1.49-.08-.13-.29-.21-.6-.36Z"
+                />
+              </svg>
+              <span>WhatsApp</span>
+            </a>
+          </div>
+          <div class="row">
+            <a href="https://www.linkedin.com/in/sachin-sharma-cs/">LinkedIn</a>
+            <a href="https://github.com/semantic-void">GitHub</a>
+            <a href="https://medium.com/@sachinsharmass790">Medium</a>
+          </div>
+        </div>
+        <footer>Sachin Sharma, Pune, India.</footer>
+      </div>
+    </section>
+
+    <button class="fab" id="qaopen" type="button" aria-haspopup="dialog">Ask me anything</button>
+<dialog id="qa" aria-labelledby="qat">
+  <div class="qa-head"><h2 id="qat">Ask me anything</h2><button type="button" id="qaclose" aria-label="Close">&times;</button></div>
+  <div class="qchips" id="qchips"></div>
+  <div class="answer" id="answer" aria-live="polite"></div>
+  <div class="row" style="margin-top:0"><a class="btn fill" href="mailto:sachinsharmass790@gmail.com">Email me</a><button type="button" class="btn" data-copy="sachinsharmass790@gmail.com" style="font:inherit;cursor:pointer">Copy email</button></div>
+</dialog>
+<dialog id="jd" aria-labelledby="jdt">
+  <div class="qa-head"><h2 id="jdt">Match a job description</h2><button type="button" id="jdclose" aria-label="Close">&times;</button></div>
+  <p class="muted" style="font-size:.92rem">Paste a job ad and see which of its technologies are on my profile. It runs in your browser and nothing is sent anywhere.</p>
+  <textarea id="jdtext" placeholder="Paste the job description here" aria-label="Job description"></textarea>
+  <div class="row"><button type="button" class="btn fill" id="jdgo" style="font:inherit;cursor:pointer">Check the match</button><button type="button" class="btn" id="jdclear" style="font:inherit;cursor:pointer">Clear</button></div>
+  <div class="answer" id="jdout" aria-live="polite" hidden></div>
+</dialog>
+<dialog id="chat" aria-labelledby="cht">
+  <div class="qa-head"><h2 id="cht">Sachin's AI advocate</h2><button type="button" id="chatclose" aria-label="Close">&times;</button></div>
+  <p class="chatnote">An AI that makes Sachin's case using only facts from this page. It can make mistakes, so email him for anything important.</p>
+  <div class="chatlog" id="chatlog" aria-live="polite"></div>
+  <div class="qchips" id="chatstart"></div>
+  <div class="chatrow"><input id="chatin" type="text" maxlength="600" placeholder="Tell me about the role you are hiring for" aria-label="Your message" autocomplete="off"><button type="button" class="btn fill" id="chatsend">Send</button></div>
+</dialog>
+<script>
+      (function () {
+        var rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var els = document.querySelectorAll(".reveal"),
+          hasIO = "IntersectionObserver" in window;
+        if (!hasIO) {
+          els.forEach(function (e) {
+            e.classList.add("in");
+          });
+        } else {
+          var io = new IntersectionObserver(
+            function (es) {
+              es.forEach(function (x) {
+                if (x.isIntersecting) {
+                  x.target.classList.add("in");
+                  io.unobserve(x.target);
+                }
+              });
+            },
+            { threshold: 0.12 },
+          );
+          els.forEach(function (e) {
+            io.observe(e);
+          });
+          var links = document.querySelectorAll(".dock a");
+          var so = new IntersectionObserver(
+            function (es) {
+              es.forEach(function (x) {
+                if (x.isIntersecting) {
+                  links.forEach(function (l) {
+                    l.setAttribute(
+                      "aria-current",
+                      l.getAttribute("href") === "#" + x.target.id,
+                    );
+                  });
+                }
+              });
+            },
+            { rootMargin: "-45% 0px -50% 0px" },
+          );
+          document.querySelectorAll("section[id]").forEach(function (s) {
+            so.observe(s);
+          });
+        }
+        if (!rm && window.matchMedia("(hover: hover)").matches) {
+          document.querySelectorAll("[data-tilt]").forEach(function (el) {
+            el.addEventListener("pointermove", function (e) {
+              var r = el.getBoundingClientRect(),
+                x = (e.clientX - r.left) / r.width - 0.5,
+                y = (e.clientY - r.top) / r.height - 0.5;
+              el.style.setProperty("--ry", (x * 5).toFixed(2) + "deg");
+              el.style.setProperty("--rx", (-y * 5).toFixed(2) + "deg");
+            });
+            el.addEventListener("pointerleave", function () {
+              el.style.setProperty("--rx", "0deg");
+              el.style.setProperty("--ry", "0deg");
+            });
+          });
+        }
+      })();
+    </script>
+  <script>
+(function(){
+  var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine=window.matchMedia('(hover: hover)').matches;
+  var toast=document.getElementById('toast'),tt;
+  function say(msg,action){toast.innerHTML='';var t=document.createElement('span');t.textContent=msg;toast.appendChild(t);
+    if(action){var b=document.createElement('button');b.type='button';b.textContent=action.label;b.onclick=action.fn;toast.appendChild(b);}
+    toast.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('show')},action?6000:2200);}
+
+  /* scroll progress */
+  var prog=document.querySelector('.prog');
+  function onScroll(){var h=document.documentElement;var p=h.scrollTop/((h.scrollHeight-h.clientHeight)||1);prog.style.setProperty('--p',Math.min(1,Math.max(0,p)).toFixed(3));}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  /* cursor spotlight on glass */
+  if(!rm&&fine){document.querySelectorAll('.glass').forEach(function(el){el.addEventListener('pointermove',function(e){var r=el.getBoundingClientRect();el.style.setProperty('--mx',(e.clientX-r.left)+'px');el.style.setProperty('--my',(e.clientY-r.top)+'px');});});}
+
+  /* count-up numbers */
+  if(!rm){document.querySelectorAll('.chip b').forEach(function(b){var m=b.textContent.match(/^(\d+)(.*)$/);if(!m)return;var end=+m[1],suf=m[2],t0=null;
+    function step(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/900);b.textContent=Math.round(end*(1-Math.pow(1-k,3)))+suf;if(k<1)requestAnimationFrame(step);}
+    b.textContent='0'+suf;requestAnimationFrame(step);});}
+
+  /* email routing simulator */
+  var rec='Bank',seg=document.querySelectorAll('#sim .seg button'),go=document.getElementById('simgo'),out=document.getElementById('simout'),flow=document.getElementById('mailflow');
+  if(flow&&go){
+    var steps=flow.querySelectorAll('li');
+    seg.forEach(function(b){b.addEventListener('click',function(){rec=b.getAttribute('data-rec');seg.forEach(function(x){x.setAttribute('aria-pressed',x===b)});});});
+    go.addEventListener('click',function(){
+      var msgs=['Test alert received as an XML file and an HTML file.','HTML is shown in the UI. XML is placed on a queue.','Encoded string of maintenance values sent to CS over SFTP.','Recipient type is '+rec+'. Finding the matching custom email.','CS is told to send the '+rec+' email, with all the data it needs.'];
+      flow.classList.add('armed');steps.forEach(function(l){l.classList.remove('on')});go.disabled=true;var i=0;
+      (function next(){steps[i].classList.add('on');out.textContent=msgs[i];i++;
+        if(i<steps.length){setTimeout(next,rm?0:750);}else{go.disabled=false;go.textContent='Send another';}})();
+    });
+  }
+
+  /* click a skill to see where it is used */
+  var cards=document.querySelectorAll('article'),sel=null;
+  function clear(){cards.forEach(function(c){c.classList.remove('dim','hit')});document.querySelectorAll('.pills li.sel').forEach(function(l){l.classList.remove('sel')});sel=null;toast.classList.remove('show');}
+  function terms(t){return t.replace(/\(.*?\)/g,'').split(/[\/,]/).map(function(x){return x.trim()}).filter(function(x){return x.length>1});}
+  function esc(x){return x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+    function hasTag(tg,li){var have=tg.split(',').map(function(x){return x.trim().toLowerCase()});return terms(li.textContent).some(function(t){return have.indexOf(t.toLowerCase())>-1});}
+document.querySelectorAll('.pills li').forEach(function(li){
+    li.tabIndex=0;li.setAttribute('role','button');
+    function pick(){
+      if(sel===li){clear();return;}
+      clear();sel=li;li.classList.add('sel');
+      var res=terms(li.textContent).map(function(t){return new RegExp('(^|[^A-Za-z0-9])'+esc(t)+'($|[^A-Za-z0-9])','i')}),first=null,n=0;
+      cards.forEach(function(c){var txt=c.textContent,tg=c.getAttribute('data-skills'),hit=tg!==null?hasTag(tg,li):res.some(function(r){return r.test(txt)});
+        if(hit){c.classList.add('hit');n++;if(!first)first=c;}else c.classList.add('dim');});
+      var name=li.textContent.trim();
+      if(!n){say('No projects or roles mention '+name+' directly.',{label:'Clear',fn:clear});return;}
+      say(name+' appears in '+n+(n===1?' place':' places'),{label:'Clear',fn:clear});
+      first.scrollIntoView({behavior:rm?'auto':'smooth',block:'center'});
+    }
+    li.addEventListener('click',pick);
+    li.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick();}});
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')clear();});
+
+  /* copy email */
+  document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){
+    var v=b.getAttribute('data-copy');
+    function ok(){say('Email copied to clipboard')}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(v).then(ok,function(){say(v)});}else{say(v);}
+  });});
+})();
+</script>
+<script>
+(function(){
+  var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var toast=document.getElementById('toast'),tt;
+  function say(msg,label,fn){toast.innerHTML='';var t=document.createElement('span');t.textContent=msg;toast.appendChild(t);
+    if(label){var b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=function(){toast.classList.remove('show');fn()};toast.appendChild(b);}
+    toast.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('show')},6500);}
+  function go(id){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:rm?'auto':'smooth',block:'center'});}
+
+  /* Ask me anything */
+  var Q=[
+   ['Who are you?','Sachin Sharma, a backend engineer with 4+ years building Java, Spring Boot and AWS systems, with React and Node.js experience. Based in Pune, India, and open to relocation.'],
+   ['What are you working on now?','At Intellect Design Arena I work on the Counterparty Onboarding Portal (CSOP) for a client bank. I built its custom email maintenance system, which routes alerts across 12+ recipient cases.'],
+   ['Best result?','At AlgoDomain I removed 80% of redundant flight logs in AWS OpenSearch, which cut logging costs by 20%. New airline partners and round-trip search also increased bookings by 10%.'],
+   ['Which domains?','Banking (CSOP and a dependency migration tool), travel (an airline reservation system) and version management (a GitHub-like platform for official documents and code).'],
+   ['Tech stack?','Java, Spring Boot and AWS (Lambda, Batch, SQS, S3, OpenSearch), with Redis, PostgreSQL, Oracle and MySQL. On the front end I have used React.js, Next.js, Node.js and TypeScript.'],
+   ['Open to relocate?','Yes. I am based in Pune, India, and open to relocation. Email is the quickest way to reach me.'],
+   ['How to reach you?','Email sachinsharmass790@gmail.com, call or WhatsApp +91 9888260630, or find me on LinkedIn and GitHub.']
+  ];
+  var dlg=document.getElementById('qa'),chips=document.getElementById('qchips'),ans=document.getElementById('answer'),typer;
+  function show(i){
+    chips.querySelectorAll('button').forEach(function(b,k){b.setAttribute('aria-pressed',k===i)});
+    clearInterval(typer);var txt=Q[i][1];ans.innerHTML='';var p=document.createElement('p');ans.appendChild(p);
+    if(rm){p.textContent=txt;return;}
+    var n=0;typer=setInterval(function(){n+=2;p.textContent=txt.slice(0,n);if(n>=txt.length)clearInterval(typer);},14);
+  }
+  Q.forEach(function(q,i){var b=document.createElement('button');b.type='button';b.textContent=q[0];b.setAttribute('aria-pressed','false');b.onclick=function(){show(i)};chips.appendChild(b);});
+  function open(){if(dlg.showModal){if(!dlg.open)dlg.showModal();}else dlg.setAttribute('open','');show(0);}
+  document.getElementById('qaopen').onclick=open;
+  document.getElementById('qaclose').onclick=function(){dlg.close?dlg.close():dlg.removeAttribute('open')};
+  dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
+
+  /* hero invitations */
+  var simgo=document.getElementById('simgo');
+  document.querySelectorAll('.explore [data-act]').forEach(function(b){b.addEventListener('click',function(){
+    var a=b.getAttribute('data-act');
+    if(a==='qa')open();
+    if(a==='sim'){go('sim');setTimeout(function(){if(simgo&&!simgo.disabled)simgo.click()},rm?0:700);}
+    if(a==='skill'){go('skills');setTimeout(function(){tryPill('Redis')},rm?0:700);}
+  })});
+  function tryPill(name){var f=null;document.querySelectorAll('.pills li').forEach(function(l){if(l.textContent.trim()===name)f=l});if(f)f.click();}
+  document.querySelectorAll('[data-try]').forEach(function(b){b.addEventListener('click',function(){tryPill(b.getAttribute('data-try'))})});
+
+  /* simulator: stop pulsing once used, autoplay once when seen */
+  if(simgo){
+    simgo.addEventListener('click',function(){simgo.classList.add('used')});
+    var sim=document.getElementById('sim');
+    if(!rm&&'IntersectionObserver' in window&&sim){var o=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){o.disconnect();setTimeout(function(){if(!simgo.classList.contains('used')&&!simgo.disabled)simgo.click()},600);}})},{threshold:.7});o.observe(sim);}
+  }
+
+  /* one friendly nudge per visit */
+  var seen=false;try{seen=sessionStorage.getItem('nudged')==='1'}catch(e){}
+  if(!seen){setTimeout(function(){
+    if(dlg.open)return;
+    say('Psst: this page is interactive.','Ask me anything',open);
+    try{sessionStorage.setItem('nudged','1')}catch(e){}
+  },8000);}
+})();
+</script>
+<script>
+(function(){
+  var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var work=document.getElementById('work');
+  var modes=document.querySelectorAll('.mode button');
+  function setMode(m){work.classList.toggle('plain',m==='plain');modes.forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-mode')===m)});}
+  modes.forEach(function(b){b.addEventListener('click',function(){setMode(b.getAttribute('data-mode'))})});
+  document.querySelectorAll('.explore [data-act="plain"]').forEach(function(b){b.addEventListener('click',function(){
+    var t=document.querySelector('.mode');if(t)t.scrollIntoView({behavior:rm?'auto':'smooth',block:'center'});
+    setTimeout(function(){setMode('plain')},rm?0:600);
+  })});
+
+  var N=[
+   ['Integrated new airline partners and added round-trip search. Bookings went up by 10%.',[0]],
+   ['Java and TypeScript Lambdas covering flight search through to reservation. I built and worked on these.',[]],
+   ['I reverse-engineered the caching architecture, found ways to optimise it and reported the findings to senior management with charts.',[]],
+   ['I removed 80% of redundant flight logs in AWS OpenSearch, which cut logging costs by 20%.',[1,2]],
+   ['A Spring Boot Lambda and Batch job that copies data from OpenSearch into PostgreSQL so it can be analysed.',[]]
+  ];
+  var nb=document.querySelectorAll('#nodes button'),nd=document.getElementById('nodedetail'),bars=document.querySelectorAll('#work .bar'),cur=-1;
+  function pick(i){
+    bars.forEach(function(b){b.classList.remove('flag')});
+    if(cur===i){cur=-1;nb.forEach(function(b){b.setAttribute('aria-pressed','false')});nd.textContent='Each part links to what I did and, where there is one, the result above.';return;}
+    cur=i;nb.forEach(function(b,k){b.setAttribute('aria-pressed',k===i)});
+    nd.textContent=N[i][0];N[i][1].forEach(function(k){if(bars[k])bars[k].classList.add('flag')});
+  }
+  nb.forEach(function(b,i){b.addEventListener('click',function(){pick(i)})});
+})();
+</script>
+<script>
+(function(){
+  var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var bar=document.createElement('div');
+  bar.className='fbar';bar.setAttribute('role','region');bar.setAttribute('aria-label','Active skill filter');
+  bar.innerHTML='<span id="fl"></span><button type="button" id="fprev" aria-label="Previous match">&lsaquo; Prev</button><button type="button" id="fnext" aria-label="Next match">Next &rsaquo;</button><button type="button" class="clr" id="fclr" aria-label="Clear skill filter">Clear &times;</button>';
+  document.body.appendChild(bar);
+  var fl=document.getElementById('fl'),prev=document.getElementById('fprev'),next=document.getElementById('fnext'),idx=0,lastName='';
+  function hits(){return Array.prototype.slice.call(document.querySelectorAll('article.hit'))}
+  function label(){
+    var li=document.querySelector('.pills li.sel');if(!li)return;
+    var h=hits(),name=li.textContent.trim();
+    fl.textContent='';fl.appendChild(document.createTextNode('Showing: '));
+    var b=document.createElement('b');b.textContent=name;fl.appendChild(b);
+    fl.appendChild(document.createTextNode(h.length?' ('+(idx+1)+' of '+h.length+')':' (no matches)'));
+  }
+  function sync(){
+    var li=document.querySelector('.pills li.sel');
+    if(!li){bar.classList.remove('show');document.body.classList.remove('filtering');lastName='';return;}
+    var name=li.textContent.trim();if(name!==lastName){idx=0;lastName=name;}
+    var h=hits();prev.style.display=next.style.display=h.length>1?'':'none';
+    label();bar.classList.add('show');document.body.classList.add('filtering');
+    var t=document.getElementById('toast');if(t)t.classList.remove('show');
+  }
+  var sk=document.getElementById('skills');
+  if(sk)new MutationObserver(sync).observe(sk,{attributes:true,subtree:true,attributeFilter:['class']});
+  function step(d){var h=hits();if(!h.length)return;idx=(idx+d+h.length)%h.length;label();h[idx].scrollIntoView({behavior:rm?'auto':'smooth',block:'center'});}
+  prev.addEventListener('click',function(){step(-1)});
+  next.addEventListener('click',function(){step(1)});
+  document.getElementById('fclr').addEventListener('click',function(){var li=document.querySelector('.pills li.sel');if(li)li.click();});
+})();
+</script>
+<script>
+(function(){
+  var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root=document.documentElement;
+
+  /* live days counter */
+  function startDays(){
+    var el=document.getElementById('days');if(!el)return;
+    var n=Math.floor((Date.now()-Date.UTC(2022,6,1))/864e5);
+    if(rm){el.textContent=n.toLocaleString();return;}
+    var t0=null;function f(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/1200);el.textContent=Math.round(n*(1-Math.pow(1-k,3))).toLocaleString();if(k<1)requestAnimationFrame(f);}requestAnimationFrame(f);
+  }
+
+  /* opening animation: the oracle orb */
+  var intro=document.getElementById('intro');
+  if(intro&&root.classList.contains('intro-on')){
+    document.querySelectorAll('.hero .glass>*').forEach(function(e,i){e.style.setProperty('--i',i)});
+    var done=false,speaking=false,timers=[],audio=null;
+    var caps=intro.querySelectorAll('.cap p'),hint=document.getElementById('hint');
+    var canSpeak='speechSynthesis' in window;
+    function after(ms,fn){timers.push(setTimeout(fn,ms))}
+    function finish(){
+      if(done)return;done=true;timers.forEach(clearTimeout);
+      try{if(canSpeak)speechSynthesis.cancel();if(audio)audio.pause();}catch(e){}
+      try{sessionStorage.setItem('introSeen','1')}catch(e){}
+      intro.classList.remove('speaking');intro.classList.add('done');document.body.classList.add('hero-in');
+      setTimeout(function(){intro.remove()},1000);
+      setTimeout(function(){root.classList.remove('intro-on');document.body.classList.remove('hero-in');startDays();},1700);
+    }
+    function spoken(ms){intro.classList.remove('speaking');after(ms,finish);}
+    function speak(){
+      if(speaking||done)return;speaking=true;
+      timers.forEach(clearTimeout);timers=[];after(16000,finish);
+      caps[0].classList.add('in');caps[1].classList.add('in');
+      intro.classList.add('formed','speaking');hint.classList.remove('in');
+      function viaSpeech(){
+        if(!canSpeak){spoken(2200);return;}
+        var u=new SpeechSynthesisUtterance('Welcome to my portfolio. Your search will end here.');
+        u.lang='en-US';u.rate=.9;u.pitch=.85;
+        u.onend=function(){spoken(900)};u.onerror=function(){spoken(600)};
+        speechSynthesis.cancel();speechSynthesis.speak(u);
+      }
+      try{
+        audio=new Audio('welcome.mp3');audio.onended=function(){spoken(900)};
+        var pr=audio.play();if(pr&&pr.catch)pr.catch(viaSpeech);
+      }catch(e){viaSpeech();}
+    }
+    requestAnimationFrame(function(){requestAnimationFrame(function(){intro.classList.add('draw')})});
+    after(2300,function(){intro.classList.add('formed')});
+    after(2800,function(){caps[0].classList.add('in')});
+    after(3500,function(){caps[1].classList.add('in')});
+    after(3900,function(){hint.classList.add('in')});
+    after(8500,function(){if(!speaking)finish()});
+    intro.addEventListener('click',function(e){if(e.target.id!=='introskip')speak()});
+    document.getElementById('introskip').addEventListener('click',finish);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')finish();});
+  }else{
+    if(intro)intro.remove();
+    startDays();
+  }
+
+  /* job description matcher */
+  var jd=document.getElementById('jd'),jt=document.getElementById('jdtext'),jo=document.getElementById('jdout');
+  function esc(x){return x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+  function rx(t){var cs=t.length<=5&&/[A-Z]/.test(t)&&t===t.toUpperCase();return new RegExp('(^|[^A-Za-z0-9])'+esc(t)+'($|[^A-Za-z0-9])',cs?'':'i');}
+  var skip={PL:1,Batch:1,C:1};
+  var mine={};
+  document.querySelectorAll('.pills li').forEach(function(li){
+    li.textContent.replace(/\(.*?\)/g,'').split(/[\/,]/).forEach(function(x){x=x.trim();if(x.length>1&&!skip[x]&&!mine[x.toLowerCase()])mine[x.toLowerCase()]={t:x,li:li};});
+  });
+  var other=['Docker','Kubernetes','Kafka','Python','Golang','C#','.NET','Terraform','Jenkins','CI/CD','Angular','Vue','GraphQL','Azure','GCP','RabbitMQ','Scala','Kotlin','PHP','Ansible','Prometheus'];
+  function chips(list,btn,onclick){
+    var w=document.createElement('div');w.className='jdchips';
+    list.forEach(function(x){var e=document.createElement(btn?'button':'span');if(btn)e.type='button';e.textContent=x.t||x;if(onclick)e.onclick=function(){onclick(x)};w.appendChild(e);});
+    return w;
+  }
+  function p(txt,cls){var e=document.createElement('p');if(cls)e.className=cls;e.style.margin='0 0 .4rem';e.textContent=txt;return e;}
+  function check(){
+    var text=jt.value;jo.hidden=false;jo.innerHTML='';
+    if(text.trim().length<10){jo.appendChild(p('Paste a job description first.'));return;}
+    var have=Object.keys(mine).map(function(k){return mine[k]}).filter(function(m){return rx(m.t).test(text)});
+    var miss=other.filter(function(t){return rx(t).test(text)});
+    if(have.length){
+      jo.appendChild(p(have.length+(have.length===1?' technology':' technologies')+' from this job description '+(have.length===1?'is':'are')+' on my profile. Click one to see where I used it.'));
+      jo.appendChild(chips(have,true,function(m){jd.close();setTimeout(function(){m.li.click()},200);}));
+    }else jo.appendChild(p('None of my listed technologies appear in that text. Check that you pasted the requirements.'));
+    if(miss.length){jo.appendChild(p('Mentioned in the ad but not listed on this page:'));jo.appendChild(chips(miss,false));}
+    jo.appendChild(p('This is a keyword match only. It does not judge experience level or fit.','jdnote'));
+  }
+  if(jd){
+    document.getElementById('jdgo').onclick=check;
+    document.getElementById('jdclear').onclick=function(){jt.value='';jo.hidden=true;jo.innerHTML='';jt.focus();};
+    document.getElementById('jdclose').onclick=function(){jd.close()};
+    jd.addEventListener('click',function(e){if(e.target===jd)jd.close()});
+    document.querySelectorAll('.explore [data-act="jd"]').forEach(function(b){b.addEventListener('click',function(){if(jd.showModal)jd.showModal();else jd.setAttribute('open','');jt.focus();});});
+  }
+})();
+</script>
+<script>
+(function(){
+  if(location.search.indexOf('debug')<0)return;
+  document.body.classList.add('debug');
+  var tagged=[].map.call(document.querySelectorAll('article[data-skills]'),function(a){return a.getAttribute('data-skills').split(',').map(function(x){return x.trim().toLowerCase()})});
+  var miss=[];
+  document.querySelectorAll('.pills li').forEach(function(li){
+    var ts=li.textContent.replace(/\(.*?\)/g,'').split(/[\/,]/).map(function(x){return x.trim().toLowerCase()}).filter(Boolean);
+    var ok=tagged.some(function(list){return ts.some(function(t){return list.indexOf(t)>-1})});
+    if(!ok){li.classList.add('untagged');li.title='Not tagged in any data-skills yet';miss.push(li.textContent.trim());}
+  });
+  console.log('Skills not tagged anywhere yet ('+miss.length+'): '+miss.join(', '));
+})();
+</script>
+<script>
+(function(){
+  var dlg=document.getElementById('chat');if(!dlg)return;
+  var log=document.getElementById('chatlog'),inp=document.getElementById('chatin'),btn=document.getElementById('chatsend'),starts=document.getElementById('chatstart');
+  var history=[],busy=false,greeted=false;
+  function add(cls,text){var d=document.createElement('div');d.className='msg '+cls;d.textContent=text;log.appendChild(d);log.scrollTop=log.scrollHeight;return d;}
+  function open(){
+    if(dlg.showModal){if(!dlg.open)dlg.showModal();}else dlg.setAttribute('open','');
+    if(!greeted){greeted=true;add('ai',"Hi, I'm Sachin's AI advocate. Tell me about the role you are hiring for and I'll show you where he fits. What is the role, and what are the two or three things that matter most?");}
+    inp.focus();
+  }
+  function send(text){
+    text=(text||'').trim();if(!text||busy)return;
+    busy=true;btn.disabled=true;starts.style.display='none';inp.value='';
+    history.push({role:'user',content:text});add('me',text);
+    var typing=add('ai typing','Thinking...');
+    var ctl=new AbortController(),t=setTimeout(function(){ctl.abort()},15000);
+    fetch('/.netlify/functions/chat',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:history}),signal:ctl.signal})
+      .then(function(r){return r.json().then(function(d){if(!r.ok)throw new Error(d&&d.error||'error');return d;});})
+      .then(function(d){typing.remove();history.push({role:'assistant',content:d.reply});add('ai',d.reply);})
+      .catch(function(e){
+        typing.remove();history.pop();
+        add('ai','I cannot reach my AI brain right now. Please try the quick answers, or email Sachin at sachinsharmass790@gmail.com.');
+      })
+      .then(function(){clearTimeout(t);busy=false;btn.disabled=false;inp.focus();});
+  }
+  ['I am hiring a backend Java engineer','I need a full-stack developer','We are in banking or fintech','Not sure yet, just browsing'].forEach(function(q){
+    var b=document.createElement('button');b.type='button';b.textContent=q;b.onclick=function(){send(q)};starts.appendChild(b);
+  });
+  btn.addEventListener('click',function(){send(inp.value)});
+  inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();send(inp.value);}});
+  document.getElementById('chatclose').onclick=function(){dlg.close?dlg.close():dlg.removeAttribute('open')};
+  dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
+  document.querySelectorAll('.explore [data-act="chat"]').forEach(function(b){b.addEventListener('click',open)});
+  var qaRow=document.querySelector('#qa .row');
+  if(qaRow){var c=document.createElement('button');c.type='button';c.className='btn';c.textContent='Chat with my AI advocate';c.style.cssText='font:inherit;cursor:pointer';
+    c.onclick=function(){var q=document.getElementById('qa');if(q.close)q.close();open();};qaRow.appendChild(c);}
+})();
+</script>
+</body>
+</html>
