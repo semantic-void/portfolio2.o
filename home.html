@@ -1224,6 +1224,39 @@
         content: " ?";
         color: #d33;
       }
+      .email-action {
+        display: inline-flex;
+        align-items: stretch;
+        min-height: 2.8rem;
+        overflow: hidden;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #fff;
+        box-shadow: inset 0 1px 0 var(--edge);
+      }
+      .email-action-link {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.65rem 1.2rem;
+        color: inherit;
+        font-weight: 500;
+        text-decoration: none;
+      }
+      .email-action-copy {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 0.9rem;
+        border: 0;
+        border-left: 1px solid rgb(255 255 255 / 40%);
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+      }
+      .email-action-copy:hover,
+      .email-action-copy:focus-visible {
+        background: rgb(0 0 0 / 10%);
+      }
     </style>
     <script>
       document.documentElement.className = "js";
@@ -1282,8 +1315,8 @@
         aria-label="Play the welcome message"
       ></button>
       <div class="cap">
-        <p>Welcome to my portfolio.</p>
-        <p>Your search will end here.</p>
+        <p>I like problems that don't have obvious answers.</p>
+        <p>I'm Sachin. Let's look a little deeper.</p>
       </div>
       <p class="hint" id="hint">Tap anywhere to hear it</p>
       <button type="button" class="intro-skip" id="introskip">Skip</button>
@@ -1330,7 +1363,7 @@
               Click a skill, see where I used it
             </button>
             <button type="button" data-act="plain">Plain-English mode</button>
-            <button type="button" data-act="jd">Match a job description</button>
+            <!-- <button type="button" data-act="jd">Match a job description</button> -->
             <button type="button" data-act="qa">Ask me anything</button>
           </div>
           <div class="chips">
@@ -1909,7 +1942,39 @@
             is the quickest way to reach me.
           </p>
           <div class="row">
-            <a class="btn fill" href="mailto:sachinsharmass790@gmail.com"
+            <div class="email-action">
+              <a
+                class="email-action-link"
+                href="mailto:sachinsharmass790@gmail.com"
+                >sachinsharmass790@gmail.com</a
+              >
+              <button
+                type="button"
+                class="email-action-copy"
+                data-copy="sachinsharmass790@gmail.com"
+                aria-label="Copy email address to clipboard"
+                title="Copy email"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="8" y="8" width="12" height="12" rx="2"></rect>
+                  <path
+                    d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+
+            <!-- <a class="btn fill" href="mailto:sachinsharmass790@gmail.com"
               >sachinsharmass790@gmail.com</a
             >
             <button
@@ -1919,7 +1984,7 @@
               style="font: inherit; cursor: pointer"
             >
               Copy email
-            </button>
+            </button> -->
             <a
               class="btn"
               href="tel:+919888260630"
@@ -1963,7 +2028,36 @@
       <div class="qchips" id="qchips"></div>
       <div class="answer" id="answer" aria-live="polite"></div>
       <div class="row" style="margin-top: 0">
-        <a class="btn fill" href="mailto:sachinsharmass790@gmail.com"
+        <div class="email-action">
+          <a class="email-action-link" href="mailto:sachinsharmass790@gmail.com"
+            >Email me</a
+          >
+          <button
+            type="button"
+            class="email-action-copy"
+            data-copy="sachinsharmass790@gmail.com"
+            aria-label="Copy email address to clipboard"
+            title="Copy email"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="8" y="8" width="12" height="12" rx="2" />
+              <path
+                d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"
+              />
+            </svg>
+          </button>
+        </div>
+        <!-- <a class="btn fill" href="mailto:sachinsharmass790@gmail.com"
           >Email me</a
         ><button
           type="button"
@@ -1972,7 +2066,7 @@
           style="font: inherit; cursor: pointer"
         >
           Copy email
-        </button>
+        </button> -->
       </div>
     </dialog>
     <dialog id="jd" aria-labelledby="jdt">
@@ -2344,19 +2438,20 @@
           ],
           [
             "What are you working on now?",
-            "At Intellect Design Arena I work on the Counterparty Onboarding Portal (CSOP) for a client bank. I built its custom email maintenance system, which routes alerts across 12+ recipient cases.",
+            "At Intellect Design Arena, I develop backend solutions for Wholesale Banking and Trade Finance platforms using Java, Spring Boot, and AWS. My work spans the Counterparty Onboarding Portal (CSOP), Letters of Credit, Outward Guarantees, and Inward Collections, across monolithic and microservices architectures, cloud and on-premises environments, and integrations with banking workflows.",
           ],
           [
             "Best result?",
-            "At AlgoDomain I removed 80% of redundant flight logs in AWS OpenSearch, which cut logging costs by 20%. New airline partners and round-trip search also increased bookings by 10%.",
+            // "At AlgoDomain I removed 80% of redundant flight logs in AWS OpenSearch, which cut logging costs by 20%. New airline partners and round-trip search also increased bookings by 10%.",
+            "One of my proudest contributions was reducing and optimizing redundant AWS OpenSearch logs by 80%, cutting logging costs by 20%, optimizing Redis caching, and contributing to airline features that increased bookings by 10%.",
           ],
           [
             "Which domains?",
-            "Banking (CSOP and a dependency migration tool), travel (an airline reservation system) and version management (a GitHub-like platform for official documents and code).",
+            "Banking (CSOP and Trade Finance), travel (an airline reservation system), version management (a GitHub-like platform for official documents), and automated code upgrades.",
           ],
           [
             "Tech stack?",
-            "Java, Spring Boot and AWS (Lambda, Batch, SQS, S3, OpenSearch), with Redis, PostgreSQL, Oracle and MySQL. On the front end I have used React.js, Next.js, Node.js and TypeScript.",
+            "Java, Spring Boot and AWS (IAM, Lambda, Batch, SQS, SNS, S3, OpenSearch, RDS, DynamoDB, ElastiCache), with Redis, PostgreSQL, Oracle and Node.js. On the front end I have used React.js, Next.js, and TypeScript.",
           ],
           [
             "Open to relocate?",
@@ -2682,7 +2777,7 @@
         function startDays() {
           var el = document.getElementById("days");
           if (!el) return;
-          var n = Math.floor((Date.now() - Date.UTC(2022, 6, 1)) / 864e5);
+          var n = Math.floor((Date.now() - Date.UTC(2022, 6, 25)) / 864e5);
           if (rm) {
             el.textContent = n.toLocaleString();
             return;
@@ -2758,12 +2853,13 @@
                 return;
               }
               var u = new SpeechSynthesisUtterance(
-                "Welcome to my portfolio. Your search will end here.",
+                "I like problems that don't have obvious answers. I'm Sachin, Let's look a little deeper.",
               );
               u.lang = "en-US";
               u.rate = 0.9;
               u.pitch = 0.85;
               u.onend = function () {
+                //  setTimeout(nextLine, index === 1 ? 800 : 400);
                 spoken(900);
               };
               u.onerror = function () {
@@ -2773,7 +2869,7 @@
               speechSynthesis.speak(u);
             }
             try {
-              audio = new Audio("welcome.mp3");
+              audio = new Audio("ElevenLabs.mp3");
               audio.onended = function () {
                 spoken(900);
               };
