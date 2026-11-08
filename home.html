@@ -530,6 +530,144 @@
         padding-top: 1rem;
       }
 
+      /* tilt fix: keeps the tilt working after .reveal finishes */
+      .js .reveal.in.tilt {
+        transform: perspective(1000px) rotateX(var(--rx, 0deg))
+          rotateY(var(--ry, 0deg));
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease,
+          opacity 0.7s ease;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .js .reveal.in.tilt {
+          transform: none;
+        }
+      }
+
+      /* resume buttons */
+      .resume-menu {
+        position: relative;
+        display: inline-block;
+      }
+      .resume-trigger {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        min-height: 2.8rem;
+        padding: 0.65rem 1.2rem;
+        font: inherit;
+        font-weight: 500;
+        cursor: pointer;
+        border-radius: 999px;
+        border: 1px solid var(--edge);
+        background: var(--glass2);
+        color: var(--ink);
+        box-shadow: inset 0 1px 0 var(--edge);
+      }
+      .resume-trigger::before {
+        content: "\2193";
+        font-weight: 600;
+        color: var(--accent);
+      }
+      .resume-trigger::after {
+        content: "\25BE";
+        font-size: 0.8rem;
+        transition: transform 0.2s;
+      }
+      .resume-trigger[aria-expanded="true"]::after {
+        transform: rotate(180deg);
+      }
+      .resume-menu.fill .resume-trigger {
+        background: var(--accent);
+        color: #fff;
+        border-color: transparent;
+      }
+      .resume-menu.fill .resume-trigger::before {
+        color: #fff;
+      }
+      .resume-pop {
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        left: 0;
+        z-index: 45;
+        width: min(21rem, calc(100vw - 2.5rem));
+        padding: 0.5rem;
+        border-radius: 24px;
+        border: 1px solid var(--edge);
+        background: color-mix(in srgb, var(--base) 90%, transparent);
+        -webkit-backdrop-filter: blur(28px) saturate(170%);
+        backdrop-filter: blur(28px) saturate(170%);
+        box-shadow:
+          0 30px 60px -20px var(--shadow),
+          inset 0 1px 0 var(--edge);
+        animation: popin 0.18s ease-out;
+      }
+      .resume-pop[hidden] {
+        display: none;
+      }
+      .resume-menu.up .resume-pop {
+        top: auto;
+        bottom: calc(100% + 0.5rem);
+      }
+      @keyframes popin {
+        from {
+          opacity: 0;
+          transform: translateY(-6px);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .resume-pop {
+          animation: none;
+        }
+      }
+      .resume-pop a {
+        display: block;
+        padding: 0.75rem 0.9rem;
+        margin-bottom: 0.3rem;
+        border-radius: 18px;
+        border: 1px solid transparent;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .resume-pop a:hover,
+      .resume-pop a:focus-visible {
+        background: var(--glass2);
+        border-color: var(--edge);
+      }
+      .resume-pop a.rec {
+        border-color: var(--accent);
+        background: color-mix(in srgb, var(--accent) 10%, transparent);
+      }
+      .resume-pop b {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.6rem;
+        font-weight: 600;
+      }
+      .resume-pop small {
+        display: block;
+        color: var(--muted);
+        font-size: 0.85rem;
+        line-height: 1.4;
+        margin-top: 0.1rem;
+      }
+      .resume-pop .why {
+        margin: 0.2rem 0.5rem 0.3rem;
+        max-width: none;
+        font-size: 0.78rem;
+        color: var(--muted);
+      }
+      .resume-pop .tagrec {
+        font: 600 0.68rem var(--sans);
+        padding: 0.12rem 0.55rem;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #fff;
+        white-space: nowrap;
+      }
+
       /* ---- interactive layer ---- */
       .glass {
         position: relative;
@@ -1350,7 +1488,43 @@
           </p>
           <div class="row">
             <a class="btn fill" href="#work">See my work</a>
-            <a class="btn" href="SachinSharmaResume.pdf">Resume (PDF)</a>
+            <div class="resume-menu">
+              <button
+                type="button"
+                class="resume-trigger"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Resume
+              </button>
+              <div class="resume-pop" role="menu" hidden>
+                <a
+                  role="menuitem"
+                  href="SachinSharmaResume.pdf"
+                  download
+                  data-kind="general"
+                >
+                  <b
+                    >General resume
+                    <span class="tagrec" hidden>Recommended for you</span></b
+                  >
+                  <small>Standard resume (PDF)</small>
+                </a>
+                <a
+                  role="menuitem"
+                  href="SachinSharmaResumeEU.pdf"
+                  download
+                  data-kind="eu"
+                >
+                  <b
+                    >EU format
+                    <span class="tagrec" hidden>Recommended for you</span></b
+                  >
+                  <small>European resume for roles in Europe (PDF)</small>
+                </a>
+                <p class="why">Suggested from your time zone.</p>
+              </div>
+            </div>
             <a href="https://github.com/semantic-void">GitHub</a>
             <a href="https://www.linkedin.com/in/sachin-sharma-cs/">LinkedIn</a>
           </div>
@@ -1941,6 +2115,45 @@
             I'm open to backend and full-stack roles, and to relocation. Email
             is the quickest way to reach me.
           </p>
+          <div class="row">
+            <div class="resume-menu fill up">
+              <button
+                type="button"
+                class="resume-trigger"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Download Resume
+              </button>
+              <div class="resume-pop" role="menu" hidden>
+                <a
+                  role="menuitem"
+                  href="SachinSharmaResume.pdf"
+                  download
+                  data-kind="general"
+                >
+                  <b
+                    >General resume
+                    <span class="tagrec" hidden>Recommended for you</span></b
+                  >
+                  <small>Standard resume (PDF)</small>
+                </a>
+                <a
+                  role="menuitem"
+                  href="SachinSharmaResumeEU.pdf"
+                  download
+                  data-kind="eu"
+                >
+                  <b
+                    >EU format
+                    <span class="tagrec" hidden>Recommended for you</span></b
+                  >
+                  <small>European resume for roles in Europe (PDF)</small>
+                </a>
+                <p class="why">Suggested from your time zone.</p>
+              </div>
+            </div>
+          </div>
           <div class="row">
             <div class="email-action">
               <a
@@ -3106,6 +3319,118 @@
             "): " +
             miss.join(", "),
         );
+      })();
+    </script>
+    <script>
+      (function () {
+        var menus = document.querySelectorAll(".resume-menu");
+        if (!menus.length) return;
+        var toast = document.getElementById("toast"),
+          tt;
+        function say(msg) {
+          if (!toast) return;
+          toast.innerHTML = "";
+          var t = document.createElement("span");
+          t.textContent = msg;
+          toast.appendChild(t);
+          toast.classList.add("show");
+          clearTimeout(tt);
+          tt = setTimeout(function () {
+            toast.classList.remove("show");
+          }, 2600);
+        }
+        var notEU = {
+          London: 1,
+          Belfast: 1,
+          Jersey: 1,
+          Guernsey: 1,
+          Isle_of_Man: 1,
+          Moscow: 1,
+          Minsk: 1,
+          Kaliningrad: 1,
+          Kirov: 1,
+          Samara: 1,
+          Volgograd: 1,
+          Astrakhan: 1,
+          Saratov: 1,
+          Ulyanovsk: 1,
+          Simferopol: 1,
+          Istanbul: 1,
+          Chisinau: 1,
+        };
+        var tz = "",
+          qs = location.search.match(/[?&]region=(eu|other)/);
+        try {
+          tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+        } catch (e) {}
+        var m = tz.match(/^Europe\/(.+)$/);
+        var isEU = qs ? qs[1] === "eu" : !!(m && !notEU[m[1]]);
+        var rec = isEU ? "eu" : "general";
+        menus.forEach(function (menu) {
+          var btn = menu.querySelector(".resume-trigger"),
+            pop = menu.querySelector(".resume-pop"),
+            items = pop.querySelectorAll("a");
+          var hit = pop.querySelector('a[data-kind="' + rec + '"]');
+          if (isEU || qs) {
+            hit.classList.add("rec");
+            hit.querySelector(".tagrec").hidden = false;
+            if (hit !== items[0]) pop.insertBefore(hit, items[0]);
+          } else {
+            /* outside Europe: still mark the general resume */
+            hit.classList.add("rec");
+            hit.querySelector(".tagrec").hidden = false;
+          }
+          function close(focus) {
+            pop.hidden = true;
+            btn.setAttribute("aria-expanded", "false");
+            if (focus) btn.focus();
+          }
+          function open() {
+            document.querySelectorAll(".resume-pop").forEach(function (p) {
+              p.hidden = true;
+            });
+            document.querySelectorAll(".resume-trigger").forEach(function (b) {
+              b.setAttribute("aria-expanded", "false");
+            });
+            pop.hidden = false;
+            btn.setAttribute("aria-expanded", "true");
+          }
+          btn.addEventListener("click", function () {
+            pop.hidden ? open() : close();
+          });
+          pop.querySelectorAll("a").forEach(function (a) {
+            a.addEventListener("click", function () {
+              say(
+                "Downloading " +
+                  (a.getAttribute("data-kind") === "eu"
+                    ? "EU format"
+                    : "general") +
+                  " resume",
+              );
+              close();
+            });
+          });
+          menu.addEventListener("keydown", function (e) {
+            var list = Array.prototype.slice.call(pop.querySelectorAll("a")),
+              i = list.indexOf(document.activeElement);
+            if (e.key === "Escape" && !pop.hidden) {
+              e.stopPropagation();
+              close(true);
+            }
+            if (e.key === "ArrowDown") {
+              e.preventDefault();
+              if (pop.hidden) open();
+              list[(i + 1) % list.length].focus();
+            }
+            if (e.key === "ArrowUp" && !pop.hidden) {
+              e.preventDefault();
+              list[(i - 1 + list.length) % list.length].focus();
+            }
+          });
+          document.addEventListener("click", function (e) {
+            if (!menu.contains(e.target)) close();
+          });
+        });
       })();
     </script>
   </body>
